@@ -11,6 +11,10 @@ cd ~
 
 git clone git@github.com:zo-ly/mackup_cfg.git
 
+cd mackup_cfg
+
+cp .mackup.cfg ~/.mackup.cfg
+
 mackup restore
 ```
 
