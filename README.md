@@ -1,3 +1,5 @@
+# My settings
+
 My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup)
 
 ## Usage
