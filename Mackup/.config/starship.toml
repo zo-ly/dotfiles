@@ -1,0 +1,6 @@
+[directory]
+truncation_symbol = '…/'
+
+[ruby]
+disabled = true
+

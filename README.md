@@ -25,6 +25,7 @@ mackup backup
 ## Backed up applications
 
 - Zsh
+- Starship
 - Git
 - Vim
 - neovim
@@ -40,7 +41,3 @@ mackup backup
 ## Troubleshooting
 
 `~/.zshrc` user's name may be wrong
-
-## ToDo
-
-- [Starship](https://github.com/starship/starship)

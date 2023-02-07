@@ -2,6 +2,9 @@ export PATH=$PATH:/usr/local/sbin
 export ZSH="/Users/zoly/.oh-my-zsh"
 export LANG=en_US.UTF-8
 
+# starship
+eval "$(starship init zsh)"
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -20,12 +23,12 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # https://spaceship-prompt.sh/options/
-ZSH_THEME="spaceship"
-SPACESHIP_PACKAGE_SHOW=false
-SPACESHIP_DOCKER_SHOW=false
-SPACESHIP_NODE_SHOW=false
-SPACESHIP_RUBY_SHOW=false
-SPACESHIP_DIR_TRUNC_PREFIX=…/
+# ZSH_THEME="spaceship"
+# SPACESHIP_PACKAGE_SHOW=false
+# SPACESHIP_DOCKER_SHOW=false
+# SPACESHIP_NODE_SHOW=false
+# SPACESHIP_RUBY_SHOW=false
+# SPACESHIP_DIR_TRUNC_PREFIX=…/
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
