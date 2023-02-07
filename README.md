@@ -42,10 +42,6 @@ mackup backup
 
 - Git
 
-  ```bash
-  brew install neovim
-  ```
-
 - Vim
 
 - neovim
@@ -53,17 +49,19 @@ mackup backup
   Prerequisite [vim-plug](https://github.com/junegunn/vim-plug)
 
   ```bash
-  # neovim editor
+  brew install neovim
+
+  # To neovim editor
   PlugInstall
   ```
 
 ## Frequently used third-party applications
 
 - [Stats](https://github.com/exelban/stats)
-- [Input Source Pro](https://inputsource.pro/zh-CN)
 - [Itsyctl](https://www.mowglii.com/itsycal/)
 - [Snipaste](https://www.snipaste.com/)
 - [Typora](https://typora.io/)
+- [Input Source Pro](https://inputsource.pro/zh-CN)
 
 ## Troubleshooting
 
