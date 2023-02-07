@@ -22,14 +22,6 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# https://spaceship-prompt.sh/options/
-# ZSH_THEME="spaceship"
-# SPACESHIP_PACKAGE_SHOW=false
-# SPACESHIP_DOCKER_SHOW=false
-# SPACESHIP_NODE_SHOW=false
-# SPACESHIP_RUBY_SHOW=false
-# SPACESHIP_DIR_TRUNC_PREFIX=…/
-
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
@@ -48,8 +40,14 @@ alias la="exa -la --icons"
 alias be="cd ~/Project/goldendata/"
 alias fe="cd ~/Project/goldendata-frontend/apps/system"
 alias vi="nvim"
-alias vim="nvim"
 
+# https://spaceship-prompt.sh/options/
+# ZSH_THEME="spaceship"
+# SPACESHIP_PACKAGE_SHOW=false
+# SPACESHIP_DOCKER_SHOW=false
+# SPACESHIP_NODE_SHOW=false
+# SPACESHIP_RUBY_SHOW=false
+# SPACESHIP_DIR_TRUNC_PREFIX=…/
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
