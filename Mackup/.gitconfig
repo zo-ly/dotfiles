@@ -1,29 +1,29 @@
 [user]
-	email = zhaoliangyu@jinshuju.net
-	name = zhaoliangyu
+  email = zhaoliangyu@jinshuju.net
+  name = zhaoliangyu
 [alias]
   co = checkout
   s = status
   sh = stash
 [pull]
-	ff = only
+  ff = only
 [core]
-	editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  editor = nvim
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [interactive]
-	diffFilter = diff-so-fancy --patch
+  diffFilter = diff-so-fancy --patch
 [color]
-	ui = true
+  ui = true
 [color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [color "diff"]
-	meta = 11
-	frag = magenta bold
-	func = 146 bold
-	commit = yellow bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+  meta = 11
+  frag = magenta bold
+  func = 146 bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse

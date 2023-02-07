@@ -7,29 +7,40 @@ My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup
 ```bash
 brew install mackup
 
-cd ~
+git clone git@github.com:zo-ly/mackup_cfg.git ~
 
-git clone git@github.com:zo-ly/mackup_cfg.git
-
-cd mackup_cfg
-
-cp .mackup.cfg ~/.mackup.cfg
+cp ~/mackup_cfg/.mackup.cfg ~/.mackup.cfg
 
 mackup restore
 ```
 
 ## Back up
 
+`cd ~/mackup_cfg` and sync to the origin repo by `Git` when backed up
+
 ```bash
 mackup backup
-
-cd ~/mackup_cfg
-
-git # git push to the origin repo
 ```
 
 ## Backed up applications
 
 - Zsh
-- Vim
 - Git
+- Vim
+- neovim
+
+## Frequently used third-party applications
+
+- [Stats]()
+- [Input Source Pro]()
+- [Itsyctl]()
+- [Snipaste]()
+- [Typora]()
+
+## Troubleshooting
+
+`.zshrc` user's name maybe wrong
+
+## ToDo
+
+Maybe use [Starship](https://github.com/starship/starship)
