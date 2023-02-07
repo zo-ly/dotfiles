@@ -2,7 +2,7 @@
 
 My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup)
 
-## Usage
+## Restore
 
 ```bash
 brew install mackup
@@ -39,8 +39,8 @@ mackup backup
 
 ## Troubleshooting
 
-`.zshrc` user's name maybe wrong
+`~/.zshrc` user's name may be wrong
 
 ## ToDo
 
-Maybe use [Starship](https://github.com/starship/starship)
+- [Starship](https://github.com/starship/starship)
