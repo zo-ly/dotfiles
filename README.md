@@ -22,6 +22,8 @@ mackup restore
 
 ## Back up
 
+**Warning** 需要使用除 `iTerm2` 以外的终端运行备份命令，否则同步 `iTerm2` 文件配置会冲突报错 [issue](https://github.com/lra/mackup/issues/1855)
+
 `cd ~/mackup_cfg` and sync to the origin repo by `Git` when backed up
 
 ```bash
@@ -29,6 +31,8 @@ mackup backup
 ```
 
 ## Backed up applications
+
+- iTerm2
 
 - Zsh
 
@@ -49,10 +53,7 @@ mackup backup
   Prerequisite [vim-plug](https://github.com/junegunn/vim-plug)
 
   ```bash
-  brew install neovim
-
-  # To neovim editor
-  PlugInstall
+  PlugInstall # in the neovim editor
   ```
 
 ## Frequently used third-party applications
