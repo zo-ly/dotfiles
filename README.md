@@ -67,3 +67,5 @@ mackup backup
 ## Troubleshooting
 
 - `~/.zshrc` user's name may be wrong
+
+- `~/.gitconfig` user name and email may be wrong
