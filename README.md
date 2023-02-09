@@ -61,6 +61,7 @@ mackup backup
 - [Stats](https://github.com/exelban/stats)
 - [Itsyctl](https://www.mowglii.com/itsycal/)
 - [Snipaste](https://www.snipaste.com/)
+- [Bob](https://github.com/ripperhe/Bob/releases)
 - [Typora](https://typora.io/)
 - [Input Source Pro](https://inputsource.pro/zh-CN)
 
