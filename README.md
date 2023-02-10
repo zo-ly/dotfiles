@@ -22,13 +22,15 @@ mackup restore
 
 ## Back up
 
-现在 Mackup 有 bug 需要退出 `iTerm2` ，使用其它终端运行备份命令，否则同步 `iTerm2` 文件设置时会报错 [issue](https://github.com/lra/mackup/issues/1855)，有 [PR](https://github.com/lra/mackup/pull/1864) 已经修复了这个问题，不知道作者什么时候合并
-
 `cd ~/mackup_cfg` and sync to the origin repo by `Git` when backed up
 
 ```bash
 mackup backup
 ```
+
+- [issue](https://github.com/lra/mackup/issues/1855)
+
+- [PR](https://github.com/lra/mackup/pull/1864)
 
 ## Backed up applications
 
