@@ -41,7 +41,7 @@ alias be="cd ~/Project/goldendata/"
 alias fe="cd ~/Project/goldendata-frontend/apps/system"
 alias vi="nvim"
 
-# git repository greeter
+# Onefetch
 last_repository=
 check_directory_for_new_repository() {
 	current_repository=$(git rev-parse --show-toplevel 2> /dev/null)
@@ -56,9 +56,6 @@ cd() {
 	builtin cd "$@"
 	check_directory_for_new_repository
 }
-
-# optional, greet also when opening shell directly in repository directory
-# adds time to startup
 check_directory_for_new_repository
 
 # https://spaceship-prompt.sh/options/
