@@ -5,6 +5,7 @@
   co = checkout
   s = status
   sh = stash
+  of = !which onefetch && onefetch
 [pull]
   ff = only
 [core]
