@@ -66,7 +66,7 @@ mackup backup
 - [Bob](https://github.com/ripperhe/Bob/releases)
 - [Typora](https://typora.io/)
 - [Input Source Pro](https://inputsource.pro/zh-CN)
-- [tokei](https://github.com/XAMPPRocky/tokei)
+- [Onefetch](https://github.com/o2sh/onefetch)
 
 ## Troubleshooting
 
