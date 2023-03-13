@@ -36,6 +36,8 @@ mackup backup
 
 - iTerm2
 
+  Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
+
 - Zsh
 
 - Starship
