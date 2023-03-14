@@ -60,9 +60,10 @@ mackup backup
   PlugInstall # in the neovim editor
   ```
 
+- Raycast
+
 ## Frequently used third-party applications
 
-- [Raycast](https://www.raycast.com/)
 - [Stats](https://github.com/exelban/stats)
 - [Itsyctl](https://www.mowglii.com/itsycal/)
 - [Snipaste](https://www.snipaste.com/)
