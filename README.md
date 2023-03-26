@@ -28,10 +28,6 @@ mackup restore
 mackup backup
 ```
 
-- [issue](https://github.com/lra/mackup/issues/1855)
-
-- [PR](https://github.com/lra/mackup/pull/1864)
-
 ## Backed up applications
 
 - iTerm2
