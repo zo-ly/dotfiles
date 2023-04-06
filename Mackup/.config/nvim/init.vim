@@ -7,6 +7,8 @@ Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
 " Go to definition
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Kitty syntax hightlighting
+Plug 'fladson/vim-kitty'
 call plug#end()
 
 " Vim Script

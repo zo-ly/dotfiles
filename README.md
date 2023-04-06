@@ -58,6 +58,8 @@ mackup backup
 
 - Raycast
 
+- kitty
+
 ## Frequently used third-party applications
 
 - [Stats](https://github.com/exelban/stats)
