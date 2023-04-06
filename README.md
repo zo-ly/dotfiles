@@ -60,6 +60,8 @@ mackup backup
 
 - kitty
 
+  Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
+
 ## Frequently used third-party applications
 
 - [Stats](https://github.com/exelban/stats)
