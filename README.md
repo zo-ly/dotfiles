@@ -58,6 +58,8 @@ mackup backup
 
 - Raycast
 
+  The exported addons are in folder `raycast`
+
 - kitty
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
