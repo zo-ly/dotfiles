@@ -47,7 +47,7 @@ call plug#end()
 colorscheme catppuccin-macchiato
 
 " ==================== nerdtree ====================
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
 set guifont=FiraCodeNFMRetian:h11
 
 " ==================== coc.nvim ====================
