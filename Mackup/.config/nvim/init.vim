@@ -1,3 +1,4 @@
+set encoding=utf8
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -27,6 +28,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'lewis6991/gitsigns.nvim'
 " Kitty syntax hightlighting
 Plug 'fladson/vim-kitty'
+" Nerdtree
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'johnstef99/vim-nerdtree-syntax-highlight'
 " Coc.nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
@@ -35,19 +40,21 @@ let g:coc_global_extensions = [
 			\'coc-eslint',
 			\'coc-prettier',
 			\'coc-tsserver',
-			\'coc-explorer',
 			\]
 call plug#end()
 
 " Vim Script
 colorscheme catppuccin-macchiato
 
+" ==================== nerdtree ====================
+nnoremap <C-n> :NERDTreeToggle<CR>
+set guifont=FiraCodeNFMRetian:h11
+
 " ==================== coc.nvim ====================
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <LEADER>b :CocCommand explorer<CR>
 
 inoremap <silent><expr> <c-i> coc#refresh()
 inoremap <silent><expr> <TAB>
