@@ -28,12 +28,15 @@ Plug 'itchyny/lightline.vim'
 Plug 'lewis6991/gitsigns.nvim'
 " Kitty syntax hightlighting
 Plug 'fladson/vim-kitty'
+" telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 " Nerdtree
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'johnstef99/vim-nerdtree-syntax-highlight'
 " Coc.nvim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 let g:coc_global_extensions = [
 			\'coc-vimlsp',
 			\'coc-json',
@@ -49,6 +52,12 @@ colorscheme catppuccin-macchiato
 " ==================== nerdtree ====================
 nnoremap <C-a> :NERDTreeToggle<CR>
 set guifont=FiraCodeNFMRetian:h11
+
+" ==================== telescope ====================
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " ==================== coc.nvim ====================
 nmap <silent> gd <Plug>(coc-definition)

@@ -73,6 +73,7 @@ mackup backup
 - [Typora](https://typora.io/)
 - [Input Source Pro](https://inputsource.pro/zh-CN)
 - [Onefetch](https://github.com/o2sh/onefetch)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 ## Troubleshooting
 
