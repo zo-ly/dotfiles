@@ -47,7 +47,7 @@ call plug#end()
 colorscheme catppuccin-macchiato
 
 " ==================== nerdtree ====================
-nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-a> :NERDTreeToggle<CR>
 set guifont=FiraCodeNFMRetian:h11
 
 " ==================== coc.nvim ====================
@@ -55,6 +55,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
+
+nnoremap Ï :CocCommand eslint.executeAutofix<CR>
 
 inoremap <silent><expr> <c-i> coc#refresh()
 inoremap <silent><expr> <TAB>
