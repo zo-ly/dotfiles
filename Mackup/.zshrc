@@ -1,5 +1,5 @@
 export PATH=$PATH:/usr/local/sbin
-export ZSH="/Users/zoly/.oh-my-zsh"
+export ZSH=$HOME/.oh-my-zsh
 export LANG=en_US.UTF-8
 
 # starship

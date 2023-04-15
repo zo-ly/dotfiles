@@ -13,7 +13,9 @@ git clone git@github.com:zo-ly/mackup_cfg.git ~/mackup_cfg
 ```
 
 ```bash
-cp ~/mackup_cfg/.mackup.cfg ~/.mackup.cfg
+cp ~/mackup_cfg/Mackup/.mackup.cfg ~/
+
+cp -r ~/mackup_cfg/Mackup/.mackup ~/
 ```
 
 ```
@@ -48,14 +50,6 @@ mackup backup
 
 - Vim
 
-- neovim
-
-  Prerequisite [vim-plug](https://github.com/junegunn/vim-plug)
-
-  ```bash
-  PlugInstall # in the neovim editor
-  ```
-
 - Raycast
 
   The exported addons are in folder `raycast`
@@ -63,6 +57,10 @@ mackup backup
 - kitty
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
+
+- NvChad
+
+  Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
 
 ## Frequently used third-party applications
 
@@ -76,7 +74,5 @@ mackup backup
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 ## Troubleshooting
-
-- `~/.zshrc` user's name may be wrong
 
 - `~/.gitconfig` user name and email may be wrong
