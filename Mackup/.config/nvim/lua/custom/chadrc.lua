@@ -8,6 +8,7 @@ local opt = vim.opt
 local g = vim.g
 
 opt.relativenumber = true
+opt.fillchars = opt.fillchars + 'diff:╱'
 g.toggle_theme_icon = ""
 
 M.ui = {
