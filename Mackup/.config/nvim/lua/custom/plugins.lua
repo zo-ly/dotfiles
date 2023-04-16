@@ -4,6 +4,16 @@ local overrides = require("custom.configs.overrides")
 local plugins = {
 
   -- Override plugin definition options
+  {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewFileHistory",
+    },
+    config = function()
+      require('diffview').setup()
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",
