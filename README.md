@@ -9,13 +9,13 @@ brew install mackup
 ```
 
 ```bash
-git clone git@github.com:zo-ly/mackup_cfg.git ~/mackup_cfg
+git clone git@github.com:zo-ly/dotfiles.git ~/dotfiles
 ```
 
 ```bash
-cp ~/mackup_cfg/Mackup/.mackup.cfg ~/
+cp ~/dotfiles/Mackup/.mackup.cfg ~/
 
-cp -r ~/mackup_cfg/Mackup/.mackup ~/
+cp -r ~/dotfiles/Mackup/.mackup ~/
 ```
 
 ```
@@ -24,7 +24,7 @@ mackup restore
 
 ## Back up
 
-`cd ~/mackup_cfg` and sync to the origin repo by `Git` when backed up
+`cd ~/dotfiles` and sync to the origin repo by `Git` when backed up
 
 ```bash
 mackup backup
@@ -50,6 +50,8 @@ mackup backup
 
 - Vim
 
+- neovim
+
 - Raycast
 
   The exported addons are in folder `raycast`
@@ -57,10 +59,6 @@ mackup backup
 - kitty
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
-
-- NvChad
-
-  Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
 
 ## Frequently used third-party applications
 

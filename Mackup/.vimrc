@@ -14,9 +14,9 @@ noremap t :tabmove +1<CR>
 noremap T :tabmove -1<CR>
 
 call plug#begin()
-Plug 'joshdick/onedark.vim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
-colorscheme onedark
+colorscheme catppuccin_macchiato
 
