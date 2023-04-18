@@ -10,8 +10,8 @@ nnoremap ,p "0p
 nnoremap ,P "0P
 nnoremap J gT
 nnoremap K gt
-noremap t :tabmove -1<CR>
-noremap T :tabmove +1<CR>
+noremap t :tabmove +1<CR>
+noremap T :tabmove -1<CR>
 
 call plug#begin()
 Plug 'joshdick/onedark.vim'
