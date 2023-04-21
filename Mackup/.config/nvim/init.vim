@@ -53,8 +53,8 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'fladson/vim-kitty'
 call plug#end()
 
-colorscheme catppuccin-macchiato
-" colorscheme tokyonight-moon
+" colorscheme catppuccin-macchiato
+colorscheme tokyonight-moon
 
 lua << EOF
   require('init')
