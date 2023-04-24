@@ -5,7 +5,6 @@ truncation_symbol = '…/'
 
 [nodejs]
 symbol = ' '
-style = 'green'
 
 [ruby]
 symbol = ' '
