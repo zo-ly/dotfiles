@@ -6,6 +6,8 @@
   s = status
   sh = stash
   of = !which onefetch && onefetch
+  og = log --graph --abbrev-commit --decorate --date=relative --all
+
 [pull]
   ff = only
 [core]
