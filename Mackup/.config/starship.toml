@@ -3,6 +3,10 @@ command_timeout = 800
 [directory]
 truncation_symbol = '…/'
 
+[nodejs]
+symbol = ' '
+style = 'green'
+
 [ruby]
 symbol = ' '
 style = 'red'
