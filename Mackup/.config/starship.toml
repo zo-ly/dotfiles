@@ -4,5 +4,6 @@ command_timeout = 800
 truncation_symbol = '…/'
 
 [ruby]
-disabled = true
+symbol = ' '
+style = 'red'
 
