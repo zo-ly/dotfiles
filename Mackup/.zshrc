@@ -1,10 +1,10 @@
 eval "$(starship init zsh)"
 eval "$(rbenv init -)"
 
-# keybindings
+# Keybindings
 bindkey '^I' autosuggest-accept  # tab  | autosuggest
 
-# alias
+# Alias
 alias la="exa -la --icons"
 alias be="cd ~/Project/goldendata/"
 alias fe="cd ~/Project/goldendata-frontend/apps/system"
@@ -19,6 +19,15 @@ plugins=(
   zsh-syntax-highlighting
 )
 source $ZSH/oh-my-zsh.sh
+
+# AutoJump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# Node version manager
+## This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+## This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Onefetch
 last_repository=
