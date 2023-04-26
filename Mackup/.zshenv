@@ -1,5 +1,6 @@
 # locale
 export PATH=$PATH:/usr/local/sbin
+export PATH=/usr/local/bin:$PATH
 export ZSH=$HOME/.oh-my-zsh
 export LANG=en_US.UTF-8
 
