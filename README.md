@@ -4,15 +4,15 @@ My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup
 
 ## Restore
 
-```bash
+```shell
 brew install mackup
 ```
 
-```bash
+```shell
 git clone git@github.com:zo-ly/dotfiles.git ~/dotfiles
 ```
 
-```bash
+```shell
 cp ~/dotfiles/Mackup/.mackup.cfg ~/
 
 cp -r ~/dotfiles/Mackup/.mackup ~/
@@ -26,7 +26,7 @@ mackup restore
 
 `cd ~/dotfiles` and sync to the origin repo by `Git` when backed up
 
-```bash
+```shell
 mackup backup
 ```
 
@@ -42,7 +42,7 @@ mackup backup
 
   Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
 
-  ```bash
+  ```shell
   brew install starship
   ```
 
@@ -59,6 +59,8 @@ mackup backup
 - kitty
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
+
+- [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
 
 ## Frequently used third-party applications
 

@@ -1,9 +1,6 @@
 eval "$(starship init zsh)"
 eval "$(rbenv init -)"
 
-# Keybindings
-bindkey '^I' autosuggest-accept  # tab  | autosuggest
-
 # Alias
 alias la="exa -la --icons"
 alias be="cd ~/Project/goldendata/"
@@ -46,3 +43,10 @@ cd() {
 }
 check_directory_for_new_repository
 
+# fzf
+## Key bindings and fuzzy completion
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Keybindings
+## autosuggest
+bindkey '^I' autosuggest-accept  # tab
