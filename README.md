@@ -32,11 +32,13 @@ mackup backup
 
 ## Backed up applications
 
+- [oh my zsh](https://ohmyz.sh/)
+
+- [Homebrew](https://brew.sh/)
+
 - iTerm2
 
   Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
-
-- Zsh
 
 - Starship
 
@@ -50,17 +52,27 @@ mackup backup
 
 - Vim
 
-- neovim
+  `PlugInstall`
 
-- Raycast
+- [neovim](https://neovim.io/)
 
-  The exported addons are in folder `raycast`
+  `PlugInstall`
 
 - kitty
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
 
+- [pnpm](https://pnpm.io/installation)
+
+  `curl -fsSL https://get.pnpm.io/install.sh | sh -`
+
+- Raycast
+
+  The exported addons are in folder `raycast`
+
 - [Bob](https://github.com/ripperhe/Bob/releases)
+
+  The exported addons are in folder `Bob`
 
 - [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
 

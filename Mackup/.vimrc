@@ -4,6 +4,7 @@ set smartindent
 set tabstop=2
 set expandtab
 set shiftwidth=2
+set termguicolors
 
 nnoremap ,, ,
 nnoremap ,p "0p
