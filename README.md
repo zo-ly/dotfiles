@@ -60,6 +60,8 @@ mackup backup
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
 
+- [Bob](https://github.com/ripperhe/Bob/releases)
+
 - [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
 
 ## Frequently used third-party applications
@@ -67,7 +69,6 @@ mackup backup
 - [Stats](https://github.com/exelban/stats)
 - [Itsyctl](https://www.mowglii.com/itsycal/)
 - [Snipaste](https://www.snipaste.com/)
-- [Bob](https://github.com/ripperhe/Bob/releases)
 - [Typora](https://typora.io/)
 - [Input Source Pro](https://inputsource.pro/zh-CN)
 - [Onefetch](https://github.com/o2sh/onefetch)
