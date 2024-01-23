@@ -85,6 +85,7 @@ mackup backup
 - [Input Source Pro](https://inputsource.pro/zh-CN)
 - [Onefetch](https://github.com/o2sh/onefetch)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [OrbStack](https://orbstack.dev/)
 
 ## Troubleshooting
 
