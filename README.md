@@ -36,6 +36,8 @@ mackup backup
 
 - [Homebrew](https://brew.sh/)
 
+  Apple Silicon and Intel have different configurations [usr/local to /opt/homebrew](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/)
+
 - Starship
 
   Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
@@ -48,11 +50,11 @@ mackup backup
 
 - Vim
 
-  `PlugInstall`
+  `PlugInstall` to install vim plugins
 
 - [neovim](https://neovim.io/)
 
-  `PlugInstall`
+  `PlugInstall` to install neovim plugins
 
 - kitty
 
@@ -95,4 +97,4 @@ mackup backup
 
 ## Troubleshooting
 
-- `~/.gitconfig` user name and email may be wrong
+- Modify the username and user email in the `.gitconfig` file according to your own situation
