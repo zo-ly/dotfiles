@@ -36,10 +36,6 @@ mackup backup
 
 - [Homebrew](https://brew.sh/)
 
-- iTerm2
-
-  Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
-
 - Starship
 
   Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
@@ -62,6 +58,10 @@ mackup backup
 
   Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
 
+- [autojump](https://github.com/wting/autojump?tab=readme-ov-file#os-x)
+
+- [auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
+
 - [pnpm](https://pnpm.io/installation)
 
   `curl -fsSL https://get.pnpm.io/install.sh | sh -`
@@ -75,6 +75,10 @@ mackup backup
   The exported addons are in folder `Bob`
 
 - [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
+
+- iTerm2
+
+  Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
 
 ## Frequently used third-party applications
 
