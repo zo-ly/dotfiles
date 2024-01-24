@@ -7,6 +7,9 @@ export LANG=en_US.UTF-8
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 
+# fix NSCFConstantString initialize error
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # react-native configuration
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
