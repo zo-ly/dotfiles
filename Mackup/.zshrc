@@ -2,7 +2,6 @@ eval "$(starship init zsh)"
 eval "$(rbenv init -)"
 
 # Alias
-alias la="exa -la --icons"
 alias be="cd ~/Project/goldendata/"
 alias fe="cd ~/Project/goldendata-frontend/apps/system"
 alias vi="nvim"
