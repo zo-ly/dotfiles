@@ -5,6 +5,7 @@ eval "$(rbenv init -)"
 alias be="cd ~/Project/goldendata/"
 alias fe="cd ~/Project/goldendata-frontend/apps/system"
 alias vi="nvim"
+alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -35,6 +36,12 @@ cd() {
 	check_directory_for_new_repository
 }
 check_directory_for_new_repository
+
+# Check the weather
+tq() {
+  local location="${1:-chengdu}"
+  curl "wttr.in/${location}"
+}
 
 # fzf
 ## Key bindings and fuzzy completion
