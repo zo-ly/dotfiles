@@ -51,6 +51,9 @@ Plug 'nvim-tree/nvim-web-devicons'
 
 " Kitty syntax hightlighting
 Plug 'fladson/vim-kitty'
+
+" Commentary
+Plug 'numToStr/Comment.nvim'
 call plug#end()
 
 " colorscheme catppuccin-macchiato
