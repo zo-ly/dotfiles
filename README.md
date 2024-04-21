@@ -36,7 +36,7 @@ mackup backup
 
 - [Homebrew](https://brew.sh/)
 
-  Apple Silicon and Intel have different configurations [usr/local to /opt/homebrew](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/)
+  Apple Silicon and Intel have different configurations [`/usr/local` to `/opt/homebrew`](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/)
 
 - Starship
 
@@ -52,7 +52,9 @@ mackup backup
 
   `PlugInstall` to install vim plugins
 
-- [neovim](https://neovim.io/)
+- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md#homebrew-on-macos-or-linux)
+
+  Prerequisite [vim-plug](https://github.com/junegunn/vim-plug?tab=readme-ov-file#neovim)
 
   `PlugInstall` to install neovim plugins
 
@@ -94,7 +96,3 @@ mackup backup
 - [Onefetch](https://github.com/o2sh/onefetch)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [OrbStack](https://orbstack.dev/)
-
-## Troubleshooting
-
-- Modify the username and user email in the `.gitconfig` file according to your own situation

@@ -44,8 +44,8 @@ tq() {
 }
 
 # fzf
-## Key bindings and fuzzy completion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
 
 # Keybindings
 ## autosuggest
