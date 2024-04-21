@@ -96,3 +96,4 @@ mackup backup
 - [Onefetch](https://github.com/o2sh/onefetch)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [OrbStack](https://orbstack.dev/)
+- [https://github.com/Mortennn/Dozer](https://github.com/Mortennn/Dozer)
