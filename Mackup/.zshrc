@@ -2,8 +2,6 @@ eval "$(starship init zsh)"
 eval "$(rbenv init -)"
 
 # Alias
-alias be="cd ~/Project/goldendata/"
-alias fe="cd ~/Project/goldendata-frontend/apps/system"
 alias vi="nvim"
 alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
 
