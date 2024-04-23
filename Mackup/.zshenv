@@ -7,6 +7,9 @@ export LANG=en_US.UTF-8
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 
+# homebrew
+export BREW_HOME="/opt/homebrew"
+
 # fix NSCFConstantString initialize error
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 

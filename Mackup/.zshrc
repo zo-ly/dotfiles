@@ -18,7 +18,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # AutoJump
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+[ -f $BREW_HOME/etc/profile.d/autojump.sh ] && . $BREW_HOME/etc/profile.d/autojump.sh
 
 # Onefetch
 last_repository=
