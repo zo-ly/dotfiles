@@ -88,7 +88,7 @@ mackup backup
 
   Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
 
-## Frequently used third-party applications
+## Commonly used third-party applications
 
 - [Stats](https://github.com/exelban/stats)
 - [Itsyctl](https://www.mowglii.com/itsycal/)
@@ -98,4 +98,6 @@ mackup backup
 - [Onefetch](https://github.com/o2sh/onefetch)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [OrbStack](https://orbstack.dev/)
-- [https://github.com/Mortennn/Dozer](https://github.com/Mortennn/Dozer)
+- [Dozer](https://github.com/Mortennn/Dozer)
+- [Command X](https://sindresorhus.com/command-x)
+- [Day Progress](https://sindresorhus.com/day-progress)
