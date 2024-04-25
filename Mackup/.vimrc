@@ -5,6 +5,7 @@ set tabstop=2
 set expandtab
 set shiftwidth=2
 set termguicolors
+set laststatus=2
 
 nnoremap ,, ,
 nnoremap ,p "0p
@@ -23,8 +24,8 @@ noremap <LEADER>l <C-w>l
 
 call plug#begin()
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 colorscheme catppuccin_macchiato
-
+let g:lightline = { 'colorscheme': 'one' }
