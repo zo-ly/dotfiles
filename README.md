@@ -36,9 +36,7 @@ mackup backup
 
 - [Homebrew](https://brew.sh/)
 
-  add `$BREW_HOME` to `.zshenv`
-
-  Apple Silicon and Intel have different configurations [`/usr/local` to `/opt/homebrew`](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/)
+  Apple Silicon and Intel have different configurations [`/usr/local` to `/opt/homebrew`](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/), modify the `$BREW_HOME` variable in the `.zshenv` file.
 
 - Starship
 
