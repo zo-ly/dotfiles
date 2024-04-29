@@ -4,6 +4,7 @@ eval "$(rbenv init -)"
 # Alias
 alias vi="nvim"
 alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
+alias py3="python3"
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
