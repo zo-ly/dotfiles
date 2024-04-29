@@ -89,7 +89,6 @@ mackup backup
 ## Commonly used third-party applications
 
 - [Stats](https://github.com/exelban/stats)
-- [Itsyctl](https://www.mowglii.com/itsycal/)
 - [Snipaste](https://www.snipaste.com/)
 - [Typora](https://typora.io/)
 - [Input Source Pro](https://inputsource.pro/zh-CN)
@@ -99,3 +98,5 @@ mackup backup
 - [Dozer](https://github.com/Mortennn/Dozer)
 - [Command X](https://sindresorhus.com/command-x)
 - [Day Progress](https://sindresorhus.com/day-progress)
+- [Calendr](https://github.com/pakerwreah/Calendr)
+  -  `MMMdd日 E HH:mm` [Format](https://www.mowglii.com/itsycal/datetime.html)
