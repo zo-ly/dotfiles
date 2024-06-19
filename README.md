@@ -78,7 +78,7 @@ mackup backup
 
   The exported addons are in folder `raycast`
 
-- [Bob](https://github.com/ripperhe/Bob/releases)
+- [Bob](https://bobtranslate.com/)
 
   The exported addons are in folder `Bob`
 
