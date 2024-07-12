@@ -34,7 +34,7 @@ Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " Buffer
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 
 " Tree
 Plug 'nvim-tree/nvim-tree.lua'
