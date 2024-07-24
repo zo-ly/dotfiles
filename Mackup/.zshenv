@@ -23,13 +23,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # python
 export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
 
-# pnpm
-export PNPM_HOME="/Users/zoly/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
 # rust cargo
 . "$HOME/.cargo/env"
 

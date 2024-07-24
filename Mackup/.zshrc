@@ -49,3 +49,11 @@ eval "$(fzf --zsh)"
 # Keybindings
 ## autosuggest
 bindkey '^I' autosuggest-accept  # tab
+
+# pnpm
+export PNPM_HOME="/Users/zoly/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
