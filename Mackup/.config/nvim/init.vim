@@ -24,8 +24,8 @@ nnoremap ,p "0p
 nnoremap ,P "0P
 nnoremap J :BufferLineCyclePre<CR>
 nnoremap K :BufferLineCycleNext<CR>
-noremap t :BufferLineMoveNext<CR>
-noremap T :BufferLineMovePre<CR>
+noremap ]t :BufferLineMoveNext<CR>
+noremap [t :BufferLineMovePre<CR>
 
 " Vim-Plug
 call plug#begin()
