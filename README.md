@@ -104,3 +104,5 @@ mackup backup
 - [Day Progress](https://sindresorhus.com/day-progress)
 - [Calendr](https://github.com/pakerwreah/Calendr)
   -  `MMMdd日 E HH:mm` [Format](https://www.mowglii.com/itsycal/datetime.html)
+- [Latest](https://max.codes/latest/)
+- [noTunes](https://github.com/tombonez/noTunes)
