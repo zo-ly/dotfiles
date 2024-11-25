@@ -3,6 +3,7 @@ eval "$(rbenv init -)"
 
 # Alias
 alias vi="nvim"
+alias ssh="kitten ssh"
 alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
 alias py3="python3"
 
