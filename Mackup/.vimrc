@@ -13,6 +13,7 @@ nnoremap ,P "0P
 nnoremap J gT
 nnoremap K gt
 nnoremap Y "*y
+vnoremap Y "*y
 noremap ]t :tabmove +1<CR>
 noremap [t :tabmove -1<CR>
 

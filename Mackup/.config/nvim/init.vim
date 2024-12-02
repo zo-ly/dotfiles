@@ -23,6 +23,7 @@ nnoremap ,, ,
 nnoremap ,p "0p
 nnoremap ,P "0P
 nnoremap Y "*y
+vnoremap Y "*y
 nnoremap J :BufferLineCyclePre<CR>
 nnoremap K :BufferLineCycleNext<CR>
 noremap ]t :BufferLineMoveNext<CR>
