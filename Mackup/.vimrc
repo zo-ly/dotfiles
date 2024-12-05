@@ -23,6 +23,7 @@ noremap <LEADER>j <C-w>j
 noremap <LEADER>k <C-w>k
 noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
+noremap <Leader>s :w<CR>
 
 call plug#begin()
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
