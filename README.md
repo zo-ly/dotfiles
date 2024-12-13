@@ -106,3 +106,4 @@ mackup backup
   -  `MMMdd日 E HH:mm` [Format](https://www.mowglii.com/itsycal/datetime.html)
 - [Latest](https://max.codes/latest/)
 - [noTunes](https://github.com/tombonez/noTunes)
+- [lazydocker](https://github.com/jesseduffield/lazydocker)
