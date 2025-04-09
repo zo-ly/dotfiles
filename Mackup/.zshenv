@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 export LANG=en_US.UTF-8
 
 # homebrew
-export BREW_HOME="/opt/homebrew"
+export BREW_HOME="/usr/local"
 
 # fix NSCFConstantString initialize error
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
