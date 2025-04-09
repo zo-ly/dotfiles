@@ -4,9 +4,6 @@ export PATH=/usr/local/bin:$PATH
 export ZSH=$HOME/.oh-my-zsh
 export LANG=en_US.UTF-8
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-
 # homebrew
 export BREW_HOME="/opt/homebrew"
 

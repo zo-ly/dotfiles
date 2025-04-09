@@ -70,10 +70,6 @@ mackup backup
 
 - [Python](https://www.python.org/downloads/)
 
-- [pnpm](https://pnpm.io/installation)
-
-  `curl -fsSL https://get.pnpm.io/install.sh | sh -`
-
 - Raycast
 
   The exported addons are in folder `raycast`
@@ -107,3 +103,5 @@ mackup backup
 - [Latest](https://max.codes/latest/)
 - [noTunes](https://github.com/tombonez/noTunes)
 - [lazydocker](https://github.com/jesseduffield/lazydocker)
+- [mise](https://mise.jdx.dev/getting-started.html)
+  - Manage multiple versions of Ruby / Node.js / pnpm
