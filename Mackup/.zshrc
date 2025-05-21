@@ -5,7 +5,6 @@ eval "$(mise activate zsh)"
 alias vi="nvim"
 alias ssh="kitten ssh"
 alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
-alias py3="python3"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 
 # Standard plugins can be found in $ZSH/plugins/

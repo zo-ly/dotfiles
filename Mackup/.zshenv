@@ -17,9 +17,6 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-# python
-export PATH="/Library/Frameworks/Python.framework/Versions/3.11/bin:${PATH}"
-
 # rust cargo
 . "$HOME/.cargo/env"
 
