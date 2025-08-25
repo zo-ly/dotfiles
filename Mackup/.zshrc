@@ -49,4 +49,4 @@ eval "$(fzf --zsh)"
 
 # Keybindings
 ## autosuggest
-bindkey '^I' autosuggest-accept  # tab
+## bindkey '^I' autosuggest-accept  # tab
