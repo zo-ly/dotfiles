@@ -86,6 +86,7 @@ mackup backup
 
 ## Commonly used third-party applications
 
+- [MonitorControl](https://github.com/MonitorControl/MonitorControl)
 - [Stats](https://github.com/exelban/stats)
 - [Snipaste](https://www.snipaste.com/)
 - [Typora](https://typora.io/)
