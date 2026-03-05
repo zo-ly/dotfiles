@@ -74,11 +74,11 @@ mackup backup
 
 - Raycast
 
-  The exported addons are in folder `raycast`
+  The exported addons are in folder `raycast` (Manual import)
 
 - [Bob](https://bobtranslate.com/)
 
-  The exported addons are in folder `Bob`
+  The exported addons are in folder `Bob` (Manual import)
 
 - [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
 
