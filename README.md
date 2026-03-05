@@ -52,6 +52,8 @@ mackup backup
 
   `PlugInstall` to install vim plugins
 
+- [LazyVim](https://www.lazyvim.org/)
+
 - [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md#homebrew-on-macos-or-linux)
 
   Prerequisite [vim-plug](https://github.com/junegunn/vim-plug?tab=readme-ov-file#neovim)
@@ -79,10 +81,6 @@ mackup backup
   The exported addons are in folder `Bob`
 
 - [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
-
-- iTerm2
-
-  Colors from the [catppuccin](https://github.com/catppuccin/iterm) by git submodule
 
 ## Commonly used third-party applications
 
