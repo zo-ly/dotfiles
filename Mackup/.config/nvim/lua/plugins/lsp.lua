@@ -9,4 +9,7 @@ return {
       },
     },
   },
+  keys = {
+    { "gh", vim.lsp.buf.hover, desc = "LSP Hover" },
+  },
 }

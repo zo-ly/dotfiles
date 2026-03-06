@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.opt.scrolloff = 1
+vim.opt.clipboard = ""
