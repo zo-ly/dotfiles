@@ -94,6 +94,7 @@ mackup backup
 - [OrbStack](https://orbstack.dev/)
 - [Dozer](https://github.com/Mortennn/Dozer)
 - [Ice](https://github.com/jordanbaird/Ice)
+- [hidden](https://github.com/dwarvesf/hidden)
 - [tailspin](https://github.com/bensadeh/tailspin?tab=readme-ov-file#installing)
 - [Command X](https://sindresorhus.com/command-x)
 - [Day Progress](https://sindresorhus.com/day-progress)
