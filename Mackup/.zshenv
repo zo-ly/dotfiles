@@ -10,6 +10,9 @@ export BREW_HOME="/opt/homebrew"
 # fix NSCFConstantString initialize error
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+# user-local binaries
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+
 # react-native configuration
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -19,4 +22,3 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # rust cargo
 . "$HOME/.cargo/env"
-
