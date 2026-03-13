@@ -11,6 +11,7 @@ export BREW_HOME="/opt/homebrew"
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # user-local binaries
+export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # react-native configuration
