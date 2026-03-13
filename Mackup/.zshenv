@@ -23,3 +23,8 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # rust cargo
 . "$HOME/.cargo/env"
+
+# proxy
+export https_proxy=http://127.0.0.1:7897
+export http_proxy=http://127.0.0.1:7897
+export all_proxy=socks5://127.0.0.1:7897
