@@ -5,11 +5,17 @@ My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup
 ## Restore
 
 ```shell
-brew install mackup
+brew install mackup git-crypt
 ```
 
 ```shell
 git clone git@github.com:zo-ly/dotfiles.git ~/dotfiles
+```
+
+Unlock encrypted files (requires the key file, stored in OneDrive):
+
+```shell
+git-crypt unlock ~/OneDrive/dotfile.key
 ```
 
 ```shell
