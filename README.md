@@ -1,112 +1,115 @@
 # My settings
 
-My application settings in sync (OS X) by [Mackup](https://github.com/lra/mackup)
+My application settings in sync (macOS) by [Mackup](https://github.com/lra/mackup)
 
-## Restore
+> Mackup uses **copy mode** (not symlinks). macOS Sonoma 14+ no longer supports symlinked preferences.
+> `mackup backup` copies files into this repo; `mackup restore` copies them back to `~`.
+
+## Restore on a new machine
+
+### 1. Install Homebrew
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+> Apple Silicon uses `/opt/homebrew`, Intel uses `/usr/local`. The `$BREW_HOME` variable in `.zshenv` handles this — update it if needed.
+
+### 2. Install prerequisites
 
 ```shell
 brew install mackup git-crypt
 ```
 
+### 3. Clone and unlock this repo
+
 ```shell
 git clone git@github.com:zo-ly/dotfiles.git ~/dotfiles
 ```
 
-Unlock encrypted files (requires the key file, stored in OneDrive):
+Unlock encrypted files (key stored in OneDrive):
 
 ```shell
 git-crypt unlock ~/OneDrive/dotfile.key
 ```
 
+### 4. Restore configs via Mackup
+
 ```shell
 cp ~/dotfiles/Mackup/.mackup.cfg ~/
-
 cp -r ~/dotfiles/Mackup/.mackup ~/
-```
-
-```
 mackup restore
 ```
 
-## Back up
+### 5. Install fonts
 
-`cd ~/dotfiles` and sync to the origin repo by `Git` when backed up
+Required before setting up the shell prompt and terminal:
+
+- [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads) — for Starship prompt
+- [NerdFontsSymbolsOnly](https://github.com/ryanoasis/nerd-fonts/releases) — for kitty
+
+### 6. Install CLI tools
+
+```shell
+brew install starship neovim kitty autojump fzf ripgrep lazydocker mise onefetch tailspin
+```
+
+### 7. Install oh-my-zsh and plugins
+
+```shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+```shell
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+### 8. Install Neovim plugins
+
+LazyVim manages plugins automatically. On first launch just open Neovim and wait for the installation to complete:
+
+```shell
+nvim
+```
+
+### 9. Manual imports
+
+- **Raycast** — import extensions from the `raycast/` folder
+- **Bob** — import plugins from the `Bob/` folder
+
+---
+
+## Back up
 
 ```shell
 mackup backup
 ```
 
-## Backed up applications
+Then commit and push the changes in `~/dotfiles`.
 
-- [oh my zsh](https://ohmyz.sh/)
-
-- [Homebrew](https://brew.sh/)
-
-  Apple Silicon and Intel have different configurations [`/usr/local` to `/opt/homebrew`](https://www.reddit.com/r/MacOS/comments/jw9guu/why_did_homebrew_move_from_usrlocalto_opthomebrew/), modify the `$BREW_HOME` variable in the `.zshenv` file.
-
-- Starship
-
-  Prerequisite [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads)
-
-  ```shell
-  brew install starship
-  ```
-
-- Git
-
-- Vim
-
-  `PlugInstall` to install vim plugins
-
-- [LazyVim](https://www.lazyvim.org/)
-
-- [neovim](https://github.com/neovim/neovim/blob/master/INSTALL.md#homebrew-on-macos-or-linux)
-
-  Prerequisite [vim-plug](https://github.com/junegunn/vim-plug?tab=readme-ov-file#neovim)
-
-  `PlugInstall` to install neovim plugins
-
-- kitty
-
-  Prerequisite [NerdFontsSymbolsOnly.zip](https://github.com/ryanoasis/nerd-fonts/releases)
-
-- [autojump](https://github.com/wting/autojump?tab=readme-ov-file#os-x)
-
-- [auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
-
-- [Python](https://www.python.org/downloads/)
-
-- Raycast
-
-  The exported addons are in folder `raycast` (Manual import)
-
-- [Bob](https://bobtranslate.com/)
-
-  The exported addons are in folder `Bob` (Manual import)
-
-- [fzf](https://github.com/junegunn/fzf?tab=readme-ov-file#using-homebrew)
+---
 
 ## Commonly used third-party applications
 
+### CLI
+
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [Onefetch](https://github.com/o2sh/onefetch)
+- [tailspin](https://github.com/bensadeh/tailspin?tab=readme-ov-file#installing)
+- [lazydocker](https://github.com/jesseduffield/lazydocker)
+- [mise](https://mise.jdx.dev/getting-started.html) — manage multiple versions of Ruby / Node.js / pnpm
+
+### GUI
+
+- [OrbStack](https://orbstack.dev/)
 - [MonitorControl](https://github.com/MonitorControl/MonitorControl)
 - [Stats](https://github.com/exelban/stats)
+- [Ice](https://github.com/jordanbaird/Ice) — menu bar manager
 - [Snipaste](https://www.snipaste.com/)
 - [Typora](https://typora.io/)
-- [Onefetch](https://github.com/o2sh/onefetch)
-- [ripgrep](https://github.com/BurntSushi/ripgrep)
-- [OrbStack](https://orbstack.dev/)
-- [Dozer](https://github.com/Mortennn/Dozer)
-- [Ice](https://github.com/jordanbaird/Ice)
-- [hidden](https://github.com/dwarvesf/hidden)
-- [tailspin](https://github.com/bensadeh/tailspin?tab=readme-ov-file#installing)
 - [Command X](https://sindresorhus.com/command-x)
 - [Day Progress](https://sindresorhus.com/day-progress)
-- [Calendr](https://github.com/pakerwreah/Calendr)
-  - `MMMdd日 E HH:mm` [Format](https://www.mowglii.com/itsycal/datetime.html)
+- [Calendr](https://github.com/pakerwreah/Calendr) — date format: `MMMdd日 E HH:mm` ([reference](https://www.mowglii.com/itsycal/datetime.html))
 - [Latest](https://max.codes/latest/)
 - [noTunes](https://github.com/tombonez/noTunes)
-- [lazydocker](https://github.com/jesseduffield/lazydocker)
-- [mise](https://mise.jdx.dev/getting-started.html)
-  - Manage multiple versions of Ruby / Node.js / pnpm
