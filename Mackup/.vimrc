@@ -24,11 +24,3 @@ noremap <LEADER>k <C-w>k
 noremap <LEADER>h <C-w>h
 noremap <LEADER>l <C-w>l
 noremap <Leader>s :w<CR>
-
-call plug#begin()
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-Plug 'itchyny/lightline.vim'
-call plug#end()
-
-colorscheme catppuccin_macchiato
-let g:lightline = { 'colorscheme': 'one' }
