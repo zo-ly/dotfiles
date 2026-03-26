@@ -54,5 +54,5 @@ eval "$(fzf --zsh)"
 # Claude Code: restore kitty keyboard protocol after exit
 claude() {
     command claude "$@"
-    printf '\e[=0u'
+    printf '\e[<100u' >/dev/tty
 }
