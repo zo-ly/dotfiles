@@ -4,6 +4,8 @@ eval "$(mise activate zsh)"
 # Alias
 alias vi="nvim"
 alias ssh="kitten ssh"
+alias cx="codex"
+alias cc="claude"
 alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 
