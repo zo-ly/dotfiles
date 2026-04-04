@@ -51,7 +51,7 @@ Required before setting up the shell prompt and terminal:
 ### 6. Install CLI tools
 
 ```shell
-brew install starship neovim kitty autojump fzf ripgrep lazydocker mise onefetch tailspin
+brew install starship neovim kitty zoxide fzf ripgrep lazydocker mise onefetch tailspin
 ```
 
 ### 7. Install oh-my-zsh and plugins
