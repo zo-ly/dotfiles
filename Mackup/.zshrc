@@ -19,9 +19,6 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-# AutoJump
-[ -f $BREW_HOME/etc/profile.d/autojump.sh ] && . $BREW_HOME/etc/profile.d/autojump.sh
-
 # Onefetch
 last_repository=
 check_directory_for_new_repository() {
@@ -37,6 +34,14 @@ cd() {
 	builtin cd "$@"
 	check_directory_for_new_repository
 }
+
+# Zoxide (--cmd z, hook triggers onefetch on directory change)
+eval "$(zoxide init zsh --hook pwd)"
+function __zoxide_cd_hook() {
+	check_directory_for_new_repository
+}
+chpwd_functions+=(__zoxide_cd_hook)
+
 check_directory_for_new_repository
 
 # Check the weather
