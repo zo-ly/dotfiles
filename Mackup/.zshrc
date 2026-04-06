@@ -56,7 +56,7 @@ eval "$(fzf --zsh)"
 
 # Keybindings
 ## autosuggest
-## bindkey '^I' autosuggest-accept  # tab
+bindkey '^[[Z' autosuggest-accept  # shift+tab
 
 # Claude Code: restore kitty keyboard protocol after exit
 claude() {
