@@ -2,6 +2,7 @@ eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 
 # Alias
+alias j="z"
 alias vi="nvim"
 alias ssh="kitten ssh"
 alias cx="codex"
