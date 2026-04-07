@@ -23,8 +23,11 @@ brew install mackup git-crypt
 
 ### 3. Clone and unlock this repo
 
+Mackup now works in **copy mode**, so this repo does not need to live at `~/dotfiles`.
+
 ```shell
-git clone git@github.com:zo-ly/dotfiles.git ~/dotfiles
+git clone git@github.com:zo-ly/dotfiles.git
+cd dotfiles
 ```
 
 Unlock encrypted files (key stored in OneDrive):
@@ -36,8 +39,8 @@ git-crypt unlock ~/OneDrive/dotfile.key
 ### 4. Restore configs via Mackup
 
 ```shell
-cp ~/dotfiles/Mackup/.mackup.cfg ~/
-cp -r ~/dotfiles/Mackup/.mackup ~/
+cp ./Mackup/.mackup.cfg ~/
+cp -r ./Mackup/.mackup ~/
 mackup restore
 ```
 
@@ -86,7 +89,7 @@ nvim
 mackup backup
 ```
 
-Then commit and push the changes in `~/dotfiles`.
+Then commit and push the changes in this repo.
 
 ---
 
