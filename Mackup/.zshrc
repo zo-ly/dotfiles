@@ -45,6 +45,11 @@ chpwd_functions+=(__zoxide_cd_hook)
 
 check_directory_for_new_repository
 
+# Markdown preview: open a markdown file in nvim and auto-launch preview
+mdp() {
+  nvim "$1" -c "MarkdownPreview"
+}
+
 # Check the weather
 tq() {
   local location="${1:-chengdu}"
