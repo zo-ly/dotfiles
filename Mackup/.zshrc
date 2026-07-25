@@ -60,6 +60,21 @@ tq() {
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --zsh)"
 
+unalias gco 2>/dev/null
+gco() {
+  if (( $# )); then
+    git checkout "$@"
+    return
+  fi
+  local branch
+  branch=$(git branch --all --sort=-committerdate --format='%(refname:short)' 2>/dev/null \
+    | grep -v '^origin/HEAD' \
+    | fzf --height 40% --reverse --border \
+          --preview 'git log --oneline --graph --color=always -20 {}') || return
+  [[ -z $branch ]] && return
+  git switch "${branch#origin/}" 2>/dev/null || git switch --track "$branch"
+}
+
 # Keybindings
 ## autosuggest
 bindkey '^[[Z' autosuggest-accept  # shift+tab
