@@ -14,12 +14,12 @@ dotfiles/
 
 This repo is the Mackup storage backend (`engine = file_system`, `path = dotfiles`).
 
-**How it works (copy mode, NOT symlink mode):**
+**How it works (copy, NOT symlink):**
 - `mackup backup` — copies config files from `~` into `Mackup/`
-- `mackup restore` — copies files from `Mackup/` back to `~`
+- `mackup restore` — copies files from `Mackup/` back to `~` (deletes the existing target first, then copies — directories are replaced whole, not merged; restored files get chmod 0600/0700)
 - Files in `~` are plain copies, not symlinks
 
-Symlink mode is intentionally avoided — macOS Sonoma (14+) broke symlinked preferences.
+In Mackup 0.11+, backup/restore always copy — `engine` only sets the storage location, not the sync mode. Symlinking is a separate `mackup link install` command, intentionally never used here (macOS Sonoma 14+ broke symlinked preferences).
 
 Config at `~/.mackup.cfg` (also tracked in `Mackup/.mackup.cfg`):
 ```ini
