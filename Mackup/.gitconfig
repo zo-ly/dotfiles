@@ -10,6 +10,8 @@
 
 [pull]
   ff = only
+[checkout]
+  guess = false
 [core]
   editor = nvim
   pager = diff-so-fancy | less --tabs=4 -RFX
