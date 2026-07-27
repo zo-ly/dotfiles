@@ -76,7 +76,15 @@ LazyVim manages plugins automatically. On first launch just open Neovim and wait
 nvim
 ```
 
-### 9. Manual imports
+### 9. Set up Claude Code status line
+
+Mackup restores the [ccstatusline](https://github.com/sirmalloc/ccstatusline) widget config (`~/.config/ccstatusline/settings.json`), but not the `statusLine` entry in `~/.claude/settings.json`. Run the TUI once and choose **Install to Claude Code**:
+
+```shell
+npx -y ccstatusline@latest
+```
+
+### 10. Manual imports
 
 - **Raycast** — import extensions from the `raycast/` folder
 - **Bob** — import plugins from the `Bob/` folder

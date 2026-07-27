@@ -1,0 +1,83 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "brightMagenta",
+        "rawValue": true
+      },
+      {
+        "id": "6f94780f-9f94-4605-ae8d-d327505100d9",
+        "type": "separator"
+      },
+      {
+        "id": "daf1a4cd-58a2-400f-bbb5-21e627243db2",
+        "type": "context-percentage",
+        "color": "cyan",
+        "dim": true
+      },
+      {
+        "id": "f8d89a95-2a60-4c42-a2ca-0f9fbd9727a6",
+        "type": "flex-separator"
+      },
+      {
+        "id": "cabdd209-37bc-471b-821d-4b62cc30329d",
+        "type": "weekly-usage",
+        "color": "gradient:atlas",
+        "metadata": {
+          "display": "time"
+        }
+      }
+    ],
+    [],
+    [
+      {
+        "id": "5905f08f-3717-42ff-9d47-2aeb8ff66358",
+        "type": "session-usage",
+        "metadata": {
+          "display": "slider"
+        }
+      },
+      {
+        "id": "eb677e8a-4278-4d7f-b7e3-c802fc42169e",
+        "type": "flex-separator"
+      },
+      {
+        "id": "a3a163f8-bf61-4c0b-8801-27c62b0c1781",
+        "type": "reset-timer",
+        "color": "",
+        "dim": true,
+        "metadata": {
+          "compact": "true"
+        }
+      }
+    ]
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "defaultPaddingSide": "both",
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "gitCacheTtlSeconds": 5,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  },
+  "installation": {
+    "method": "pinned",
+    "installedVersion": "2.2.25"
+  }
+}
