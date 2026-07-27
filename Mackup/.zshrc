@@ -67,12 +67,11 @@ gco() {
     return
   fi
   local branch
-  branch=$(git branch --all --sort=-committerdate --format='%(refname:short)' 2>/dev/null \
-    | grep -v '^origin/HEAD' \
+  branch=$(git branch --sort=-committerdate --format='%(refname:short)' 2>/dev/null \
     | fzf --height 40% --reverse --border \
           --preview 'git log --oneline --graph --color=always -20 {}') || return
   [[ -z $branch ]] && return
-  git switch "${branch#origin/}" 2>/dev/null || git switch --track "$branch"
+  git switch "$branch"
 }
 
 # Keybindings
