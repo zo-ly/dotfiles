@@ -10,6 +10,24 @@ dotfiles/
 └── README.md
 ```
 
+## Security
+
+**This repo is public**, and it syncs shell and git config out of `~`. Anything written into
+`Mackup/.zshenv`, `.zshrc`, `.zprofile` or `.gitconfig` is published the moment it is pushed.
+
+- Never put credentials (API keys, tokens, passwords) in a tracked file. Keep them in the macOS
+  keychain, or somewhere outside what Mackup syncs — its Zsh app covers exactly `.zshenv`,
+  `.zprofile`, `.zshrc`, `.zlogin` and `.zlogout`.
+- A new file that has to carry secrets needs `filter=git-crypt` in `.gitattributes` **before**
+  its first commit. Only `Bob/config.bobconfig` is encrypted today.
+- If a secret does land in a commit, **rotate the credential**. Rewriting history does not undo
+  a public leak — forks, caches and crawlers keep it.
+- Precedent: `Bob/config.bobconfig` was committed as a plaintext zip from 2024-01 to 2025-03.
+  The keys were rotated and the file encrypted in 370d475 (2026-03-16).
+- Secret scanners do not cover this repo's main risk: they match patterns in text and do not
+  look inside archives, so an unencrypted `.bobconfig` or `.rayconfig` passes unnoticed. That is
+  why there is no pre-commit scan here — git-crypt is the control that matters.
+
 ## Mackup
 
 This repo is the Mackup storage backend (`engine = file_system`, `path = dotfiles`).
