@@ -14,7 +14,6 @@ alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
   git
-  gitfast
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -44,11 +43,6 @@ function __zoxide_cd_hook() {
 chpwd_functions+=(__zoxide_cd_hook)
 
 check_directory_for_new_repository
-
-# Markdown preview: open a markdown file in nvim and auto-launch preview
-mdp() {
-  nvim "$1" -c "MarkdownPreview"
-}
 
 # Check the weather
 tq() {
