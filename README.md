@@ -54,7 +54,7 @@ Required before setting up the shell prompt and terminal:
 ### 6. Install CLI tools
 
 ```shell
-brew install starship neovim kitty zoxide fzf ripgrep lazydocker mise onefetch tailspin
+brew install starship neovim kitty zoxide fzf ripgrep fd eza git-delta gh glab lazygit lazydocker btop mise onefetch tailspin
 ```
 
 ### 7. Install oh-my-zsh and plugins
@@ -87,7 +87,7 @@ npx -y ccstatusline@latest
 ### 10. Manual imports
 
 - **Raycast** — import extensions from the `raycast/` folder
-- **Bob** — import plugins from the `Bob/` folder
+- **Bob** — translation/OCR app (paid build); import `Bob/config.bobconfig` from inside the app
 
 ---
 
@@ -109,6 +109,8 @@ Then commit and push the changes in this repo.
 - [Onefetch](https://github.com/o2sh/onefetch)
 - [tailspin](https://github.com/bensadeh/tailspin?tab=readme-ov-file#installing)
 - [lazydocker](https://github.com/jesseduffield/lazydocker)
+- [lazygit](https://github.com/jesseduffield/lazygit)
+- [delta](https://github.com/dandavison/delta) — git diff pager (already wired up in `~/.gitconfig`)
 - [mise](https://mise.jdx.dev/getting-started.html) — manage multiple versions of Ruby / Node.js / pnpm
 
 ### GUI

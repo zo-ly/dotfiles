@@ -5,7 +5,7 @@
 ```
 dotfiles/
 ├── Mackup/        # Config files managed by Mackup (actual file contents)
-├── Bob/           # Bob version manager related configs
+├── Bob/           # Bob (macOS translation/OCR app) config export
 ├── raycast/       # Raycast scripts/extensions
 └── README.md
 ```
@@ -43,6 +43,14 @@ git clone <repo> ~/dotfiles
 cp ~/dotfiles/Mackup/.mackup.cfg ~/.mackup.cfg
 mackup restore
 ```
+
+## Bob
+
+`Bob/config.bobconfig` is a config export from [Bob](https://bobtranslate.com/), the macOS translation / OCR app — **not** the Neovim version manager of the same name.
+
+- Paid, closed-source build. The export is created and imported by hand from within the app; no automation needed here.
+- Contains preferences plus installed plugins (openai-translator, a self-written aidict).
+- The file is a zip — do not try to edit or diff it as text.
 
 ## Editor Setup
 
