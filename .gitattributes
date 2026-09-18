@@ -1,1 +1,1 @@
-Bob/config.bobconfig filter=git-crypt diff=git-crypt
+Bob/config.bobconfig filter=git-crypt binary
