@@ -12,24 +12,20 @@
   ff = only
 [core]
   editor = nvim
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
 [interactive]
-  diffFilter = diff-so-fancy --patch
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  line-numbers = true
+  hyperlinks = true
+  hunk-header-style = omit
+[merge]
+  conflictStyle = zdiff3
+[diff]
+  colorMoved = default
 [color]
   ui = true
-[color "diff-highlight"]
-  oldNormal = red bold
-  oldHighlight = red bold 52
-  newNormal = green bold
-  newHighlight = green bold 22
-[color "diff"]
-  meta = 11
-  frag = magenta bold
-  func = 146 bold
-  commit = yellow bold
-  old = red bold
-  new = green bold
-  whitespace = red reverse
 [includeIf "gitdir:~/workspace/"]
   path = .gitconfig-work
 [filter "lfs"]
