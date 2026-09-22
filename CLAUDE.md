@@ -16,8 +16,8 @@ dotfiles/
 `Mackup/.zshenv`, `.zshrc`, `.zprofile` or `.gitconfig` is published the moment it is pushed.
 
 - Never put credentials (API keys, tokens, passwords) in a tracked file. Keep them in the macOS
-  keychain, or somewhere outside what Mackup syncs — its Zsh app covers exactly `.zshenv`,
-  `.zprofile`, `.zshrc`, `.zlogin` and `.zlogout`.
+  keychain, or in `~/.zshenv.local` (see [Machine-local config](#machine-local-config)) — Mackup's
+  Zsh app covers exactly `.zshenv`, `.zprofile`, `.zshrc`, `.zlogin` and `.zlogout`, nothing else.
 - A new file that has to carry secrets needs `filter=git-crypt` in `.gitattributes` **before**
   its first commit. Only `Bob/config.bobconfig` is encrypted today.
 - If a secret does land in a commit, **rotate the credential**. Rewriting history does not undo
@@ -61,6 +61,16 @@ git clone <repo> ~/dotfiles
 cp ~/dotfiles/Mackup/.mackup.cfg ~/.mackup.cfg
 mackup restore
 ```
+
+## Machine-local config
+
+Anything that must not leave this machine — proxies, work-only PATH entries, credentials — goes in
+`~/.zshenv.local`, sourced at the end of `Mackup/.zshenv`. Mackup's Zsh app syncs only the five
+files listed under [Security](#security), so `.zshenv.local` is never copied into this repo and
+never published. It is also the reason `Mackup/.zshenv` itself stays machine-agnostic: prefer a
+runtime probe (as `BREW_HOME` does) over hardcoding, and push the rest here.
+
+Because it is untracked, a new machine starts without it — recreate it by hand during setup.
 
 ## Bob
 

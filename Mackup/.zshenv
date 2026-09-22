@@ -22,3 +22,8 @@ unset _dir
 
 # rust cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# machine-local overrides (not synced by Mackup)
+if [ -f "$HOME/.zshenv.local" ]; then
+  . "$HOME/.zshenv.local"
+fi
