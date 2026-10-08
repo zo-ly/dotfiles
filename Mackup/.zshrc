@@ -1,5 +1,6 @@
-eval "$(starship init zsh)"
+# mise first: starship, zoxide, fzf etc. are installed by mise
 eval "$(mise activate zsh)"
+eval "$(starship init zsh)"
 
 # Alias
 alias j="z"

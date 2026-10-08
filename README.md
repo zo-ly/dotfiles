@@ -20,8 +20,12 @@ My application settings in sync (macOS) by [Mackup](https://github.com/lra/macku
 
 ### 2. Install prerequisites
 
+CLI tools are managed by [mise](https://mise.jdx.dev/), installed with its own script (not brew — on Intel, brew would compile it from source):
+
 ```shell
-brew install mackup git-crypt
+curl https://mise.run | sh
+~/.local/bin/mise use -g uv pipx:mackup
+brew install git-crypt
 ```
 
 ### 3. Clone and unlock this repo
@@ -44,7 +48,14 @@ git-crypt unlock ~/OneDrive/dotfile.key
 ```shell
 cp ./Mackup/.mackup.cfg ~/
 cp -r ./Mackup/.mackup ~/
-mackup restore
+~/.local/bin/mise exec -- mackup restore
+```
+
+On an **Intel Mac**, also pin the tools whose upstream no longer ships x86_64 macOS binaries
+(see `Mackup/.config/mise/config.intel.toml`):
+
+```shell
+echo 'export MISE_ENV=intel' >> ~/.zshenv.local
 ```
 
 ### 5. Install fonts
@@ -56,8 +67,12 @@ Required before setting up the shell prompt and terminal:
 
 ### 6. Install CLI tools
 
+Open a new terminal first, then:
+
 ```shell
-brew install starship neovim kitty zoxide fzf ripgrep fd git-delta gh glab lazygit lazydocker btop mise onefetch
+mise install                 # everything in ~/.config/mise/config.toml, as prebuilt binaries
+brew install btop            # no macOS release binary upstream
+brew install --cask kitty
 ```
 
 ### 7. Install oh-my-zsh and plugins
@@ -104,6 +119,42 @@ Then commit and push the changes in this repo.
 
 ---
 
+## Day to day
+
+```shell
+mise use -g <tool>  # CLI tool with a macOS release binary; else brew install <tool>
+brew install --cask <app>
+
+mise upgrade        # upgrades and removes the replaced versions
+brew upgrade        # on Intel, check `brew upgrade -n` first: anything without a bottle builds from source
+mise self-update
+mise prune -y       # occasionally: versions no config references any more
+```
+
+After `mise use -g`, run `mackup backup` and commit; on the other machine `git pull && mackup restore && mise install`.
+
+## Migrating an existing machine from brew to mise
+
+```shell
+cd ~/dotfiles && git pull
+curl https://mise.run | sh
+mackup restore                                   # still the brew one at this point
+echo 'export MISE_ENV=intel' >> ~/.zshenv.local   # Intel only
+```
+
+Check `~/.config/mise/config.toml` for a token or machine-only tools **before** `mackup restore` —
+it is overwritten. Then, in a new terminal:
+
+```shell
+mise install
+for f in starship neovim zoxide fzf ripgrep fd git-delta gh glab lazygit lazydocker onefetch mackup mise eza tailspin; do
+  brew list "$f" &>/dev/null && brew uninstall "$f"
+done
+brew autoremove && brew cleanup -s
+```
+
+---
+
 ## Commonly used third-party applications
 
 ### CLI
@@ -113,7 +164,7 @@ Then commit and push the changes in this repo.
 - [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
 - [delta](https://github.com/dandavison/delta) — git diff pager (already wired up in `~/.gitconfig`)
-- [mise](https://mise.jdx.dev/getting-started.html) — manage multiple versions of Ruby / Node.js / pnpm
+- [mise](https://mise.jdx.dev/getting-started.html) — language runtimes (Ruby / Node.js / pnpm) and CLI tools
 
 ### GUI
 

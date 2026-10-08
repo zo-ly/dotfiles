@@ -72,6 +72,24 @@ runtime probe (as `BREW_HOME` does) over hardcoding, and push the rest here.
 
 Because it is untracked, a new machine starts without it — recreate it by hand during setup.
 
+## Tool management
+
+Homebrew moved Intel macOS to Tier 3 in 7.0.0 (2026-09): no new bottles, so on the 2019 Intel Mac
+every upgraded formula builds from source (rust/llvm toolchains took 10+ hours). Hence the split:
+
+- **mise** — language runtimes and every CLI tool whose upstream ships a macOS release binary.
+  The list lives in `Mackup/.config/mise/config.toml`, synced by the `mine` Mackup app.
+  mise itself is installed via `curl https://mise.run | sh`, not brew.
+- **brew** — casks (GUI apps, kitty) and the few CLI tools with no macOS binary: `btop`, `git-crypt`.
+
+Intel caveat: some upstreams ship only arm64 for macOS (`delta` since 0.19, `onefetch` since 2.21).
+`Mackup/.config/mise/config.intel.toml` pins the last x86_64 release, loaded via `MISE_ENV=intel`
+in that machine's `~/.zshenv.local`. Before adding a tool, check its release assets if the Intel
+Mac needs it too.
+
+Never put `[env]` secrets (e.g. `MISE_GITHUB_TOKEN`) in the mise config — it is synced and public.
+Export them from `~/.zshenv.local` instead.
+
 ## Bob
 
 `Bob/config.bobconfig` is a config export from [Bob](https://bobtranslate.com/), the macOS translation / OCR app — **not** the Neovim version manager of the same name.

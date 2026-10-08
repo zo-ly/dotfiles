@@ -1,0 +1,23 @@
+[tools]
+delta = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+glab = "latest"
+java = "zulu-11"
+lazydocker = "latest"
+lazygit = "latest"
+neovim = "latest"
+node = "22"
+onefetch = "latest"
+"pipx:mackup" = "latest"
+pnpm = "latest"
+python = "latest"
+ripgrep = "latest"
+ruby = "latest"
+starship = "latest"
+uv = "latest"
+zoxide = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]

@@ -1,0 +1,5 @@
+# Intel Mac overrides, loaded when MISE_ENV=intel (set in ~/.zshenv.local).
+# Upstream stopped shipping x86_64 macOS binaries; pin the last release that has one.
+[tools]
+delta = "0.18.2"
+onefetch = "2.20.0"
