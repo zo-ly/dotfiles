@@ -166,7 +166,6 @@ brew autoremove && brew cleanup -s
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [Onefetch](https://github.com/o2sh/onefetch)
-- [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
 - [delta](https://github.com/dandavison/delta) — git diff pager (already wired up in `~/.gitconfig`)
 - [mise](https://mise.jdx.dev/getting-started.html) — language runtimes (Ruby / Node.js / pnpm) and CLI tools
