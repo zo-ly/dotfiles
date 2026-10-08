@@ -57,7 +57,7 @@ Required before setting up the shell prompt and terminal:
 ### 6. Install CLI tools
 
 ```shell
-brew install starship neovim kitty zoxide fzf ripgrep fd eza git-delta gh glab lazygit lazydocker btop mise onefetch tailspin
+brew install starship neovim kitty zoxide fzf ripgrep fd git-delta gh glab lazygit lazydocker btop mise onefetch
 ```
 
 ### 7. Install oh-my-zsh and plugins
@@ -110,7 +110,6 @@ Then commit and push the changes in this repo.
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [Onefetch](https://github.com/o2sh/onefetch)
-- [tailspin](https://github.com/bensadeh/tailspin?tab=readme-ov-file#installing)
 - [lazydocker](https://github.com/jesseduffield/lazydocker)
 - [lazygit](https://github.com/jesseduffield/lazygit)
 - [delta](https://github.com/dandavison/delta) — git diff pager (already wired up in `~/.gitconfig`)
