@@ -72,7 +72,12 @@ Open a new terminal first, then:
 ```shell
 mise install                 # everything in ~/.config/mise/config.toml, as prebuilt binaries
 brew install btop            # no macOS release binary upstream
-brew install --cask kitty
+```
+
+kitty, via its official installer ([docs](https://sw.kovidgoyal.net/kitty/binary/)):
+
+```shell
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 ```
 
 ### 7. Install oh-my-zsh and plugins
@@ -171,11 +176,9 @@ brew autoremove && brew cleanup -s
 - [OrbStack](https://orbstack.dev/)
 - [MonitorControl](https://github.com/MonitorControl/MonitorControl)
 - [Stats](https://github.com/exelban/stats)
-- [Ice](https://github.com/jordanbaird/Ice) — menu bar manager
+- [Pelmet](https://github.com/fif7y/pelmet) — menu bar manager for macOS 27+
 - [Snipaste](https://www.snipaste.com/)
 - [Typora](https://typora.io/)
 - [Command X](https://sindresorhus.com/command-x)
-- [Day Progress](https://sindresorhus.com/day-progress)
 - [Calendr](https://github.com/pakerwreah/Calendr) — date format: `MMMdd日 E HH:mm` ([reference](https://www.mowglii.com/itsycal/datetime.html))
-- [Latest](https://max.codes/latest/)
 - [noTunes](https://github.com/tombonez/noTunes)
