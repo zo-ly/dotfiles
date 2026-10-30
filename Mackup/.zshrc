@@ -5,10 +5,9 @@ eval "$(starship init zsh)"
 # Alias
 alias j="z"
 alias vi="nvim"
-alias ssh="kitten ssh"
 alias cx="codex"
 alias cc="claude"
-alias myip="ifconfig en0 | awk '\$1 == \"inet\" {print \$2}'"
+alias myip="ipconfig getifaddr en0"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 
 # Standard plugins can be found in $ZSH/plugins/
@@ -20,30 +19,24 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-# Onefetch
+# Onefetch: show repo info when entering a new repository
+# chpwd covers cd, z, pushd/popd; -t 1 skips non-tty shells (e.g. agent tool shells)
 last_repository=
 check_directory_for_new_repository() {
-	current_repository=$(git rev-parse --show-toplevel 2> /dev/null)
+	[[ -t 1 ]] || return
+	local current_repository=$(git rev-parse --show-toplevel 2> /dev/null)
 
-	if [ "$current_repository" ] && \
-	   [ "$current_repository" != "$last_repository" ]; then
+	if [[ -n $current_repository && $current_repository != $last_repository ]]; then
 		onefetch
 	fi
 	last_repository=$current_repository
 }
-cd() {
-	builtin cd "$@"
-	check_directory_for_new_repository
-}
-
-# Zoxide (--cmd z, hook triggers onefetch on directory change)
-eval "$(zoxide init zsh --hook pwd)"
-function __zoxide_cd_hook() {
-	check_directory_for_new_repository
-}
-chpwd_functions+=(__zoxide_cd_hook)
-
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd check_directory_for_new_repository
 check_directory_for_new_repository
+
+# Zoxide
+eval "$(zoxide init zsh --hook pwd)"
 
 # Check the weather
 tq() {
@@ -93,8 +86,11 @@ gbD() { __gbr_delete -D "$@"; }
 ## autosuggest
 bindkey '^[[Z' autosuggest-accept  # shift+tab
 
-# Claude Code: restore kitty keyboard protocol after exit
-claude() {
+# kitty-only: ssh via kitten (ships terminfo), restore keyboard protocol after Claude Code exits
+if [[ $TERM == xterm-kitty ]]; then
+  alias ssh="kitten ssh"
+  claude() {
     command claude "$@"
     printf '\e[<100u' >/dev/tty
-}
+  }
+fi

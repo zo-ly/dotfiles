@@ -5,7 +5,7 @@
   co = checkout
   s = status
   sh = stash
-  of = !which onefetch && onefetch
+  of = !onefetch
   og = log --graph --abbrev-commit --decorate --date=relative --all
 
 [pull]
@@ -33,3 +33,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[push]
+  autoSetupRemote = true
+[fetch]
+  prune = true
+[branch]
+  sort = -committerdate
