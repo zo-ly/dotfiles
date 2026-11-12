@@ -85,7 +85,11 @@ every upgraded formula builds from source (rust/llvm toolchains took 10+ hours).
 Intel caveat: some upstreams ship only arm64 for macOS (`delta` since 0.19, `onefetch` since 2.21).
 `Mackup/.config/mise/config.intel.toml` pins the last x86_64 release, loaded via `MISE_ENV=intel`
 in that machine's `~/.zshenv.local`. Before adding a tool, check its release assets if the Intel
-Mac needs it too.
+Mac needs it too. Never run `mise upgrade --bump` there: it rewrites those pins to arm64-only versions.
+
+`ruby` is pinned to a minor (`4.0`), not `latest`: mise's precompiled rubies (`jdx/ruby`) are
+arm64-only, so on Intel every new version compiles from source and links brew's `libyaml` and
+`openssl@4` (both kept as installed-on-request for that reason).
 
 Never put `[env]` secrets (e.g. `MISE_GITHUB_TOKEN`) in the mise config — it is synced and public.
 Export them from `~/.zshenv.local` instead.
