@@ -88,7 +88,10 @@ every upgraded formula builds from source (rust/llvm toolchains took 10+ hours).
 - **mise** — language runtimes and every CLI tool whose upstream ships a macOS release binary.
   The list lives in `Mackup/.config/mise/config.toml`, synced by the `mine` Mackup app.
   mise itself is installed via `curl https://mise.run | sh`, not brew.
-- **brew** — casks (GUI apps, kitty) and the few CLI tools with no macOS binary: `btop`, `git-crypt`.
+- **brew** — casks (GUI apps, kitty) and the few CLI tools with no macOS binary: `git`, `git-crypt`.
+  `git` is not in mise's registry, and Apple's `/usr/bin/git` lags (2.50 vs 2.56), so it stays here
+  and builds from source on Intel. Its build needs `cmake` and `pkgconf`, also built from source —
+  expect a long first build and a few minutes per upgrade after that.
 
 Intel caveat: some upstreams ship only arm64 for macOS (`delta` since 0.19, `onefetch` since 2.21).
 `Mackup/.config/mise/config.intel.toml` pins the last x86_64 release, loaded via `MISE_ENV=intel`

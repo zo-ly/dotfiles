@@ -71,7 +71,7 @@ Open a new terminal first, then:
 
 ```shell
 mise install                 # everything in ~/.config/mise/config.toml, as prebuilt binaries
-brew install btop            # no macOS release binary upstream
+brew install git             # not in mise's registry; builds from source on Intel
 ```
 
 kitty, as a brew cask (a prebuilt app, so it is fast on Intel too):
