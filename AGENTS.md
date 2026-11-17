@@ -1,4 +1,4 @@
-# Dotfiles — Claude Context
+# Dotfiles — Agent Context
 
 ## Repository Structure
 

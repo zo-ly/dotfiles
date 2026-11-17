@@ -3,7 +3,7 @@
 My application settings in sync (macOS) by [Mackup](https://github.com/lra/mackup)
 
 > ⚠️ **This repo is public.** Never commit credentials — shell and git config are synced out of
-> `~`, so an exported token would be published. See [Security](CLAUDE.md#security).
+> `~`, so an exported token would be published. See [Security](AGENTS.md#security).
 
 > Mackup uses **copy mode** (not symlinks). macOS Sonoma 14+ no longer supports symlinked preferences.
 > `mackup backup` copies files into this repo; `mackup restore` copies them back to `~`.
