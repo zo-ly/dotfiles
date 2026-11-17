@@ -7,6 +7,7 @@ alias j="z"
 alias vi="nvim"
 alias cx="codex"
 alias cc="claude"
+alias gof="onefetch --no-art"
 alias myip="ipconfig getifaddr en0"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 

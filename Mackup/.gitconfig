@@ -5,7 +5,6 @@
   co = checkout
   s = status
   sh = stash
-  of = !onefetch --no-art
   og = log --graph --abbrev-commit --decorate --date=relative --all
 
 [pull]
