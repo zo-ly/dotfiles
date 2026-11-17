@@ -27,7 +27,7 @@ check_directory_for_new_repository() {
 	local current_repository=$(git rev-parse --show-toplevel 2> /dev/null)
 
 	if [[ -n $current_repository && $current_repository != $last_repository ]]; then
-		onefetch
+		onefetch --no-art
 	fi
 	last_repository=$current_repository
 }
