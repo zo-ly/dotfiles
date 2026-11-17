@@ -7,7 +7,7 @@ alias j="z"
 alias vi="nvim"
 alias cx="codex"
 alias cc="claude"
-alias gof="onefetch --no-art"
+alias gof="onefetch"
 alias myip="ipconfig getifaddr en0"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 
@@ -28,7 +28,7 @@ check_directory_for_new_repository() {
 	local current_repository=$(git rev-parse --show-toplevel 2> /dev/null)
 
 	if [[ -n $current_repository && $current_repository != $last_repository ]]; then
-		onefetch --no-art
+		onefetch
 	fi
 	last_repository=$current_repository
 }
