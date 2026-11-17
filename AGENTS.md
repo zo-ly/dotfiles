@@ -106,9 +106,15 @@ Export them from `~/.zshenv.local` instead.
 
 Installed as a brew cask (`brew install --cask kitty`), so a plain `brew upgrade` covers it.
 
-- `font_family` must name a family kitty accepts as monospace — `FiraCode Nerd Font Mono`, not
-  `FiraCode Nerd Font`. The non-Mono family is rejected and kitty falls back to Menlo without any
-  visible error, after which changing `style=` does nothing. `kitty +list-fonts` shows what it accepts.
+- `font_family` is deliberately unset: the default `monospace` resolves to Menlo, which ships with
+  every macOS, and kitty's bundled `Symbols Nerd Font Mono` supplies the icons. Menlo has only
+  Regular and Bold — a weight in between needs a different font.
+- If `font_family` is set again, it must name a family kitty accepts as monospace — `FiraCode Nerd
+  Font Mono`, not `FiraCode Nerd Font`. The non-Mono family is rejected and kitty falls back to Menlo
+  without any visible error, after which changing `style=` does nothing. `kitty +list-fonts` shows
+  what it accepts.
+- `macos_thicken_font` is not used: kitty marks it obsolete in favour of `text_composition_strategy`.
+  That one is left at its default too (`1.7 30` on macOS).
 - Unknown options are ignored just as quietly. `padding_fill_strategy` and
   `restore_session_after_logout` are unknown to 0.48.2 and work on 0.50.0, so keep kitty current
   on every machine that restores this config.
