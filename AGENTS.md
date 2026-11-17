@@ -102,6 +102,20 @@ arm64-only, so on Intel every new version compiles from source and links brew's 
 Never put `[env]` secrets (e.g. `MISE_GITHUB_TOKEN`) in the mise config — it is synced and public.
 Export them from `~/.zshenv.local` instead.
 
+## kitty
+
+Installed as a brew cask (`brew install --cask kitty`), so a plain `brew upgrade` covers it.
+
+- `font_family` must name a family kitty accepts as monospace — `FiraCode Nerd Font Mono`, not
+  `FiraCode Nerd Font`. The non-Mono family is rejected and kitty falls back to Menlo without any
+  visible error, after which changing `style=` does nothing. `kitty +list-fonts` shows what it accepts.
+- Unknown options are ignored just as quietly. `padding_fill_strategy` and
+  `restore_session_after_logout` are unknown to 0.48.2 and work on 0.50.0, so keep kitty current
+  on every machine that restores this config.
+- kitty watches `kitty.conf` and reloads on change; `mackup restore kitty` is enough to apply an edit.
+- Mackup syncs `kitty.conf` only. It ends with `include current-theme.conf`, which is **not** in
+  this repo — on a new machine create it with `kitten themes`.
+
 ## Bob
 
 `Bob/config.bobconfig` is a config export from [Bob](https://bobtranslate.com/), the macOS translation / OCR app — **not** the Neovim version manager of the same name.

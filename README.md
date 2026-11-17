@@ -62,7 +62,7 @@ echo 'export MISE_ENV=intel' >> ~/.zshenv.local
 
 Required before setting up the shell prompt and terminal:
 
-- [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads) — for Starship prompt
+- [Fira Code Nerd Font](https://www.nerdfonts.com/font-downloads) — for Starship prompt and kitty (kitty uses the `Mono` family)
 - [NerdFontsSymbolsOnly](https://github.com/ryanoasis/nerd-fonts/releases) — for kitty
 
 ### 6. Install CLI tools
@@ -74,10 +74,11 @@ mise install                 # everything in ~/.config/mise/config.toml, as preb
 brew install btop            # no macOS release binary upstream
 ```
 
-kitty, via its official installer ([docs](https://sw.kovidgoyal.net/kitty/binary/)):
+kitty, as a brew cask (a prebuilt app, so it is fast on Intel too):
 
 ```shell
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+brew install --cask kitty
+kitten themes                # creates ~/.config/kitty/current-theme.conf, which kitty.conf includes
 ```
 
 ### 7. Install oh-my-zsh and plugins
