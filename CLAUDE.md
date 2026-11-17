@@ -36,6 +36,14 @@ This repo is the Mackup storage backend (`engine = file_system`, `path = dotfile
 - `mackup backup` — copies config files from `~` into `Mackup/`
 - `mackup restore` — copies files from `Mackup/` back to `~` (deletes the existing target first, then copies — directories are replaced whole, not merged; restored files get chmod 0600/0700)
 - Files in `~` are plain copies, not symlinks
+- Both take an optional app name (`mackup restore kitty`) to limit the run to one app; `-n` is a dry run
+
+The unit that gets replaced is each path in the app's definition, not its parent directory —
+check with `mackup show <app>` before assuming what a restore touches. `kitty` covers only
+`.config/kitty/kitty.conf`; `neovim` covers `init.lua`, `lua/` and a few sibling entries, so
+`lazy-lock.json`, `lazyvim.json` and kitty's theme files are never synced nor deleted.
+
+To pick up a change on an existing machine: `git pull`, then `mackup restore [<app>]`.
 
 In Mackup 0.11+, backup/restore always copy — `engine` only sets the storage location, not the sync mode. Symlinking is a separate `mackup link install` command, intentionally never used here (macOS Sonoma 14+ broke symlinked preferences).
 
