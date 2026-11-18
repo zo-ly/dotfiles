@@ -8,6 +8,7 @@ alias vi="nvim"
 alias cx="codex"
 alias cc="claude"
 alias gof="onefetch"
+alias glr="git pull --rebase"
 alias myip="ipconfig getifaddr en0"
 alias cfonts="system_profiler SPFontsDataType >> fonts.txt"
 
