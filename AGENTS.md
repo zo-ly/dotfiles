@@ -105,6 +105,11 @@ arm64-only, so on Intel every new version compiles from source and links brew's 
 Never put `[env]` secrets (e.g. `MISE_GITHUB_TOKEN`) in the mise config — it is synced and public.
 Export them from `~/.zshenv.local` instead.
 
+## Zsh aliases
+
+`Mackup/.zshrc` loads oh-my-zsh's `git` plugin, which already defines ~200 git aliases (`gsh`,
+`gco`, `gpr`, …) in `~/.oh-my-zsh/plugins/git/git.plugin.zsh`. Check there before adding one.
+
 ## kitty
 
 Installed as a brew cask (`brew install --cask kitty`), so a plain `brew upgrade` covers it.
