@@ -37,6 +37,13 @@ autoload -Uz add-zsh-hook
 add-zsh-hook chpwd check_directory_for_new_repository
 check_directory_for_new_repository
 
+# WSL (WezTerm on Windows): report the cwd via OSC 7 so new splits/tabs open in the same directory.
+# kitty on the Mac tracks it through its own shell integration.
+if [[ -n $WSL_DISTRO_NAME ]]; then
+  __report_cwd() { printf '\e]7;file://%s%s\e\\' "$HOST" "${PWD// /%20}" }
+  add-zsh-hook precmd __report_cwd
+fi
+
 # Zoxide
 eval "$(zoxide init zsh --hook pwd)"
 

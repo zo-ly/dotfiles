@@ -1,6 +1,6 @@
 # My settings
 
-My application settings in sync (macOS) by [Mackup](https://github.com/lra/mackup)
+My application settings in sync (macOS, plus Windows via WSL2 — see [Windows](#windows-wsl2--wezterm)) by [Mackup](https://github.com/lra/mackup)
 
 > ⚠️ **This repo is public.** Never commit credentials — shell and git config are synced out of
 > `~`, so an exported token would be published. See [Security](AGENTS.md#security).
@@ -112,6 +112,93 @@ npx -y ccstatusline@latest
 
 - **Raycast** — import extensions from the `raycast/` folder
 - **Bob** — translation/OCR app (paid build); import `Bob/config.bobconfig` from inside the app
+
+---
+
+## Windows (WSL2 + WezTerm)
+
+The shell, Neovim and every mise tool run inside WSL2 (Ubuntu), so the same configs apply.
+The terminal is [WezTerm](https://wezterm.org/install/windows.html), a native Windows app that opens
+straight into WSL. No brew here: apt for the few system packages, mise for the rest.
+
+### 1. WSL2 — admin PowerShell
+
+```powershell
+wsl --install            # WSL2 + Ubuntu; reboot, then create the Linux user when prompted
+wsl -l -v                # the distro name; wezterm.lua assumes "Ubuntu"
+```
+
+### 2. WezTerm
+
+Install the nightly build: `WezTerm-nightly-setup.exe` from the
+[nightly release](https://github.com/wezterm/wezterm/releases/tag/nightly) (the last stable release is from 2024).
+Until step 4 it opens PowerShell — run `wsl` there, or use the Ubuntu app.
+
+### 3. Shell and configs — inside WSL
+
+oh-my-zsh must go in **before** `mackup restore`, or its installer overwrites `.zshrc`:
+
+```shell
+sudo apt update && sudo apt install -y zsh git curl build-essential unzip
+chsh -s "$(which zsh)"
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+curl https://mise.run | sh
+~/.local/bin/mise use -g uv pipx:mackup
+
+git clone https://github.com/zo-ly/dotfiles.git ~/dotfiles   # https: no ssh key yet
+cp ~/dotfiles/Mackup/.mackup.cfg ~/
+cp -r ~/dotfiles/Mackup/.mackup ~/
+~/.local/bin/mise exec -- mackup restore
+
+~/.local/bin/mise install
+exec zsh
+```
+
+- Do **not** set `MISE_ENV=intel` here — those pins are for the Intel Mac only.
+- If `mise install` starts compiling Ruby, add its build deps and rerun:
+  `sudo apt install -y libssl-dev libyaml-dev zlib1g-dev libffi-dev libreadline-dev`
+- `Bob/config.bobconfig` stays encrypted; nothing on Windows needs it, so no `git-crypt unlock`.
+
+### 4. Point WezTerm at the synced config — PowerShell
+
+The config lives in WSL (`~/.config/wezterm/wezterm.lua`, restored by Mackup). Tell Windows-side WezTerm where it is,
+replacing `<user>` with the Linux user name:
+
+```powershell
+setx WEZTERM_CONFIG_FILE "\\wsl.localhost\Ubuntu\home\<user>\.config\wezterm\wezterm.lua"
+```
+
+Restart WezTerm: it should open in zsh with the starship prompt. Edits over this path may not reload
+automatically — press `Ctrl+Shift+R`.
+
+### Keys
+
+Anything with `Ctrl+Shift` belongs to the terminal; plain `Ctrl+letter` / `Alt+letter` go to zsh and Neovim
+(`Ctrl+A/E/U/W/R/K/L`, `Alt+F/B/.` all work). ★ = added in `wezterm.lua`, the rest are WezTerm defaults.
+
+| Action | Keys |
+|---|---|
+| New tab / close tab | `Ctrl+Shift+T` / `Ctrl+Shift+W` |
+| Next / previous tab | `Ctrl+Tab` / `Ctrl+Shift+Tab` |
+| Go to tab N | `Ctrl+Shift+1..9` |
+| ★ Split right / down (same directory) | `Ctrl+Shift+Enter` / `Ctrl+Shift+-` |
+| ★ Move to pane left/down/up/right | `Ctrl+Shift+H/J/K/L` |
+| ★ Swap pane with a picked one | `Ctrl+Shift+S` |
+| Zoom pane | `Ctrl+Shift+Z` |
+| ★ Close pane | `Ctrl+Shift+D` |
+| Copy / paste | `Ctrl+Shift+C` / `Ctrl+Shift+V` |
+| Search scrollback / copy mode | `Ctrl+Shift+F` / `Ctrl+Shift+X` |
+| ★ Open link | `Ctrl+click` (a plain click only selects) |
+| Reload config | `Ctrl+Shift+R` |
+
+### Changing the config
+
+Edit `~/.config/wezterm/wezterm.lua` in WSL, then `mackup backup` and commit from `~/dotfiles`
+(pushing needs an ssh key or `gh auth login` in WSL).
 
 ---
 

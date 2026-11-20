@@ -60,6 +60,7 @@ Git
 Vim
 neovim
 kitty
+wezterm
 mine
 ```
 
@@ -102,6 +103,11 @@ Mac needs it too. Never run `mise upgrade --bump` there: it rewrites those pins 
 arm64-only, so on Intel every new version compiles from source and links brew's `libyaml` and
 `openssl@4` (both kept as installed-on-request for that reason).
 
+WSL (Windows): no brew. `apt` covers the system packages (`zsh`, `git`, `build-essential`), mise the
+rest — Linux x86_64 binaries exist for every tool in `config.toml`. `MISE_ENV` stays unset there, and
+`.zprofile` skips `brew shellenv` when `$BREW_HOME/bin/brew` is missing. A tool added for the Mac must
+also ship a Linux release binary if Windows needs it.
+
 Never put `[env]` secrets (e.g. `MISE_GITHUB_TOKEN`) in the mise config — it is synced and public.
 Export them from `~/.zshenv.local` instead.
 
@@ -129,6 +135,26 @@ Installed as a brew cask (`brew install --cask kitty`), so a plain `brew upgrade
 - kitty watches `kitty.conf` and reloads on change; `mackup restore kitty` is enough to apply an edit.
 - Mackup syncs `kitty.conf` only. It ends with `include current-theme.conf`, which is **not** in
   this repo — on a new machine create it with `kitten themes`.
+
+## WezTerm (Windows)
+
+Windows only — the Mac keeps kitty, and `wezterm.lua` has no macOS branches. Setup steps are in
+README → Windows. The shell runs in WSL2; WezTerm is the native Windows app in front of it.
+
+- Config: `Mackup/.config/wezterm/wezterm.lua`, synced by Mackup's built-in `wezterm` app into WSL's
+  `~/.config/wezterm/`. Windows-side WezTerm reads it through the user env var `WEZTERM_CONFIG_FILE`
+  = `\\wsl.localhost\Ubuntu\home\<user>\.config\wezterm\wezterm.lua`. Changes over that path may not
+  trigger auto-reload; `Ctrl+Shift+R` reloads.
+- `default_domain = 'WSL:Ubuntu'` must match `wsl -l -v`.
+- Keys are a Windows scheme of their own, not a port of the Mac's: `Ctrl+Shift+…` belongs to the
+  terminal, plain `Ctrl+letter` / `Alt+letter` go to zsh and Neovim. WezTerm's defaults already follow
+  that; `wezterm.lua` only adds splits (`Enter`, `-`), pane moves (`H/J/K/L`, replacing the defaults
+  ClearScrollback on K and ShowDebugOverlay on L), swap (`S`) and close pane (`D` — not `X`, which is the
+  default copy mode). Common actions avoid arrow keys; the default arrow bindings stay. Check
+  https://wezterm.org/config/default-keys.html before taking a new `Ctrl+Shift` key.
+- Links open on `Ctrl+click` only; WezTerm's default opens them on a plain click.
+- Splits keep the directory because `.zshrc` emits OSC 7 when `$WSL_DISTRO_NAME` is set.
+- Not ported from kitty: the `tall` layout and its bias/mirror actions, the nvim scrollback pager.
 
 ## Bob
 
