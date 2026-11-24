@@ -61,6 +61,7 @@ Vim
 neovim
 kitty
 wezterm
+zed
 mine
 ```
 
@@ -168,6 +169,8 @@ README → Windows. The shell runs in WSL2; WezTerm is the native Windows app in
 
 - **Primary editor**: Neovim via [LazyVim](https://www.lazyvim.org/) — config in `Mackup/.config/nvim/`
 - **VSCode**: Uses vim extension (VSCodeVim), reads `~/.vimrc` for keymaps/settings
+- **Zed**: Mackup's built-in `zed` app syncs only `~/.config/zed/settings.json` and `keymap.json` —
+  themes, prompts and extensions are not in this repo
 - **vim-plug is NOT used** — removed because VSCodeVim doesn't support it and Neovim uses LazyVim
 
 `Mackup/.vimrc` contains only basic settings and keymaps compatible with VSCodeVim.

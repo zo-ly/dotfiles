@@ -1,0 +1,97 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "theme": "One Dark Pro",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
+  },
+  "buffer_font_size": 14.0,
+  "markdown_preview": {},
+  "cursor_blink": false,
+  "agent": {
+    "dock": "right",
+    "threads_sidebar": {
+      "position": "right"
+    },
+    "favorite_models": [],
+    "model_parameters": []
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "proxy": "",
+  "git": {
+    "inline_blame": {
+      "location": "status_bar"
+    },
+    "enable_diff": true,
+    "enable_status": true,
+    "blame": {
+      "date_style": "relative"
+    },
+    "date_format": "locale"
+  },
+  "diff_view_style": "unified",
+  "cli_default_open_behavior": "existing_window",
+  "terminal": {
+    "env": {
+      "FIG_NEW_SESSION": "\"1\""
+    }
+  },
+  "sticky_scroll": {
+    "enabled": false
+  },
+  "minimap": {
+    "show": "always"
+  },
+  "file_types": {
+    "tailwindcss": [
+      "*.css"
+    ],
+    "ruby": [
+      "*.rb"
+    ],
+    "javascript": [
+      "*.wxs"
+    ],
+    "typescriptreact": [
+      "*.tsx"
+    ],
+    "jsonc": [
+      "*.cjson"
+    ],
+    "css": [
+      "*.wxss"
+    ]
+  },
+  "colorize_brackets": true,
+  "linked_edits": true,
+  "tab_size": 2,
+  "base_keymap": "VSCode",
+  "lsp": {
+    "eslint": {
+      "settings": {
+        "onIgnoredFiles": "off"
+      }
+    }
+  },
+  "vim_mode": true,
+  "telemetry": {
+    "metrics": true
+  }
+}

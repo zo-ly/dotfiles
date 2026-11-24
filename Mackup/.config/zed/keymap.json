@@ -1,0 +1,22 @@
+[
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "shift-j": "pane::ActivatePreviousItem",
+      "shift-k": "pane::ActivateNextItem",
+      "space g": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "EmptyPane || Welcome",
+    "bindings": {
+      "space g": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "g m": ["vim::MiddleOfLine", { "display_lines": true }]
+    }
+  }
+]
