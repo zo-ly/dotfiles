@@ -3,14 +3,15 @@
     "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
       "shift-j": "pane::ActivatePreviousItem",
-      "shift-k": "pane::ActivateNextItem",
-      "space g": "git_panel::ToggleFocus"
+      "shift-k": "pane::ActivateNextItem"
     }
   },
   {
-    "context": "EmptyPane || Welcome",
+    // Overrides cmd-shift-g's default search::SelectPreviousMatch (Pane) and
+    // agent::SelectPreviousThreadMatch (AcpThread); deeper contexts win, so all three are needed.
+    "context": "Workspace || Pane || AcpThread",
     "bindings": {
-      "space g": "git_panel::ToggleFocus"
+      "cmd-shift-g": "git_panel::ToggleFocus"
     }
   },
   {
