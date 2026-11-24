@@ -128,6 +128,32 @@ wsl --install            # WSL2 + Ubuntu; reboot, then create the Linux user whe
 wsl -l -v                # the distro name; wezterm.lua assumes "Ubuntu"
 ```
 
+WSL2 runs in a VM, so CPU virtualization must be on in the BIOS (Intel: *Intel Virtualization
+Technology* / VT-x). If it is off, the install fails with `HCS_E_HYPERV_NOT_INSTALLED` even though
+the *Virtual Machine Platform* feature is enabled. Check with
+`(Get-CimInstance Win32_ComputerSystem).HypervisorPresent` — it should be `True` after the reboot.
+
+A forgotten Linux password needs no reinstall: `wsl -u root passwd <user>`.
+
+### Proxy — if Windows reaches GitHub only through a local proxy
+
+WSL2 ignores the Windows proxy by default. With Windows 11 22H2+ (build ≥ 22621), mirrored networking
+lets WSL share the host's network and inherit its system proxy. Put this in `%USERPROFILE%\.wslconfig`,
+then `wsl --shutdown`:
+
+```ini
+[wsl2]
+networkingMode=mirrored
+autoProxy=true
+```
+
+The proxy app must have *system proxy* on. Inside WSL, `env | grep -i _proxy` should now list it.
+`sudo` drops those variables, so apt needs its own entry (use the proxy's port):
+
+```shell
+echo 'Acquire::http::Proxy "http://127.0.0.1:7890"; Acquire::https::Proxy "http://127.0.0.1:7890";' | sudo tee /etc/apt/apt.conf.d/95proxy
+```
+
 ### 2. WezTerm
 
 Install the nightly build: `WezTerm-nightly-setup.exe` from the
