@@ -34,7 +34,6 @@
   "project_panel": {
     "dock": "left"
   },
-  "proxy": "",
   "git": {
     "inline_blame": {
       "location": "status_bar"
@@ -48,11 +47,6 @@
   },
   "diff_view_style": "unified",
   "cli_default_open_behavior": "existing_window",
-  "terminal": {
-    "env": {
-      "FIG_NEW_SESSION": "\"1\""
-    }
-  },
   "sticky_scroll": {
     "enabled": false
   },
@@ -60,22 +54,13 @@
     "show": "always"
   },
   "file_types": {
-    "tailwindcss": [
-      "*.css"
-    ],
-    "ruby": [
-      "*.rb"
-    ],
-    "javascript": [
+    "JavaScript": [
       "*.wxs"
     ],
-    "typescriptreact": [
-      "*.tsx"
-    ],
-    "jsonc": [
+    "JSONC": [
       "*.cjson"
     ],
-    "css": [
+    "CSS": [
       "*.wxss"
     ]
   },
