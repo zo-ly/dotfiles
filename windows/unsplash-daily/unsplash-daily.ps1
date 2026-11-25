@@ -14,14 +14,14 @@ param(
     [ValidateSet('Both', 'Wallpaper', 'LockScreen')][string]$Only = 'Both',
     # Each day two different entries are drawn: one for the desktop, one for the lock screen.
     # Plain entries search Unsplash (photography); "wh:" entries search Wallhaven
-    # (anime / game / film art, general + anime categories).
+    # (art and screenshots, general + anime categories).
     [string[]]$Queries = @(
-        'kamakura', 'kyoto', 'sakura', 'japanese railroad', 'tokyo night',
+        'kamakura', 'kyoto',
         'yunnan', 'erhai lake', 'lijiang old town', 'chinese ancient town',
         'snow mountain lake', 'mountain reflection', 'misty mountains', 'fjord',
         'mountain meadow', 'horses grazing', 'autumn tree', 'mountain cabin',
-        'wh:anime landscape', 'wh:Makoto Shinkai', 'wh:Studio Ghibli',
-        'wh:video games landscape', 'wh:pixel art', 'wh:film stills'
+        'classic car', 'sports car',
+        'wh:Makoto Shinkai'
     ),
     [int]$MinWidth = 3840,
     [string]$Root = (Join-Path $env:USERPROFILE 'Pictures\Unsplash')
