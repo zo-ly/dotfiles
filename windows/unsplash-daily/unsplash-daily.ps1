@@ -16,10 +16,10 @@ param(
     # Plain entries search Unsplash (photography); "wh:" entries search Wallhaven
     # (anime / game / film art, general + anime categories).
     [string[]]$Queries = @(
-        'kamakura', 'enoshima', 'kyoto', 'japanese street',
-        'dali yunnan', 'erhai lake', 'yunnan',
-        'chinese ancient town', 'lijiang old town', 'wuzhen', 'fenghuang',
-        'akihabara', 'tokyo night', 'japanese railroad', 'cinematic', 'film photography',
+        'kamakura', 'kyoto', 'sakura', 'japanese railroad', 'tokyo night',
+        'yunnan', 'erhai lake', 'lijiang old town', 'chinese ancient town',
+        'snow mountain lake', 'mountain reflection', 'misty mountains', 'fjord',
+        'mountain meadow', 'horses grazing', 'autumn tree', 'mountain cabin',
         'wh:anime landscape', 'wh:Makoto Shinkai', 'wh:Studio Ghibli',
         'wh:video games landscape', 'wh:pixel art', 'wh:film stills'
     ),
