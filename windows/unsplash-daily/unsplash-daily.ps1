@@ -1,17 +1,22 @@
-# Unsplash daily wallpaper + screensaver (Windows PowerShell 5.1).
-#   Desktop:     one new photo per day, set directly.
-#   Screensaver: a folder of photos for the built-in "Photos" screensaver,
-#                replaced as a whole every day. Never overlaps the desktop photo.
+# Unsplash daily desktop wallpaper + lock screen (Windows PowerShell 5.1).
+# Each day: one photo for the desktop, a different one for the lock screen (Win+L).
 #
 # Runs once per day: a second run on the same day exits at once unless -Force.
-# Each run costs ScreensaverCount + 3 API requests; the demo quota is 50 per hour.
+# Each run costs 4 API requests; the demo quota is 50 per hour.
 # Needs the user environment variable UNSPLASH_ACCESS_KEY (install.ps1 sets it).
+# Must stay on Windows PowerShell 5.1: the lock screen API is WinRT, which pwsh 7 cannot load.
 # Keep this file ASCII-only: PowerShell 5.1 reads BOM-less files as ANSI.
 param(
     [switch]$Force,
-    [string]$WallpaperQuery = 'landscape',
-    [string]$ScreensaverQuery = 'nature',
-    [ValidateRange(1, 30)][int]$ScreensaverCount = 20,
+    # Each day two different terms are drawn: one for the desktop, one for the lock screen.
+    [string[]]$Queries = @(
+        # Japan
+        'kyoto', 'japanese countryside', 'japanese temple', 'mount fuji', 'japan coast',
+        # Yunnan / Dali
+        'dali yunnan', 'erhai lake', 'yunnan', 'lijiang',
+        # Same quiet mood elsewhere
+        'faroe islands', 'lofoten', 'dolomites', 'misty forest', 'rice terraces', 'tea plantation'
+    ),
     [int]$Width = 3840,
     [string]$Root = (Join-Path $env:USERPROFILE 'Pictures\Unsplash')
 )
@@ -23,12 +28,11 @@ $Key = [Environment]::GetEnvironmentVariable('UNSPLASH_ACCESS_KEY', 'User')
 if (-not $Key) { throw 'UNSPLASH_ACCESS_KEY is not set' }
 $Headers = @{ Authorization = "Client-ID $Key"; 'Accept-Version' = 'v1' }
 
-$WallDir  = Join-Path $Root 'Wallpaper'
-$SaverDir = Join-Path $Root 'Screensaver'
-$Staging  = Join-Path $Root 'staging'
-$Stamp    = Join-Path $Root 'last-run.txt'
-$Log      = Join-Path $Root 'log.txt'
-New-Item -ItemType Directory -Force $WallDir, $SaverDir | Out-Null
+$WallDir = Join-Path $Root 'Wallpaper'
+$LockDir = Join-Path $Root 'LockScreen'
+$Stamp   = Join-Path $Root 'last-run.txt'
+$Log     = Join-Path $Root 'log.txt'
+New-Item -ItemType Directory -Force $WallDir, $LockDir | Out-Null
 
 function Write-Log([string]$msg) { "$(Get-Date -Format s)  $msg" | Add-Content -Encoding UTF8 $Log }
 
@@ -51,30 +55,56 @@ function Save-Photo($photo, [string]$dir, [string]$label) {
     $file
 }
 
-$sig = '[DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern bool SystemParametersInfo(int a, int p, string f, int fl);'
-Add-Type -MemberDefinition $sig -Name Wallpaper -Namespace Win32
+# Keep only the photo just set; Windows has already copied it into its own store.
+function Remove-Older([string]$dir, [string]$keep) {
+    Get-ChildItem $dir -Filter *.jpg | Where-Object { $_.FullName -ne $keep } | Remove-Item -Force
+}
 
-try {
-    $walls = Get-RandomPhotos $WallpaperQuery 1
-    $wall  = $walls[0]
-    $saver = Get-RandomPhotos $ScreensaverQuery $ScreensaverCount
-    $saver = $saver | Where-Object { $_.id -ne $wall.id }
-
-    # Desktop. SPI_SETDESKWALLPAPER also switches the background type to "Picture".
-    $old = Get-ChildItem $WallDir -Filter *.jpg
-    $wallFile = Save-Photo $wall $WallDir 'wallpaper'
+function Set-Wallpaper([string]$file) {
+    $sig = '[DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern bool SystemParametersInfo(int a, int p, string f, int fl);'
+    Add-Type -MemberDefinition $sig -Name Wallpaper -Namespace Win32
     Set-ItemProperty 'HKCU:\Control Panel\Desktop' WallpaperStyle '10'   # fill
     Set-ItemProperty 'HKCU:\Control Panel\Desktop' TileWallpaper '0'
-    if (-not [Win32.Wallpaper]::SystemParametersInfo(0x14, 0, $wallFile, 0x3)) { throw 'SystemParametersInfo failed' }
-    $old | Where-Object { $_.FullName -ne $wallFile } | Remove-Item -Force
+    # SPI_SETDESKWALLPAPER, persist + broadcast; also switches the background type to "Picture"
+    if (-not [Win32.Wallpaper]::SystemParametersInfo(0x14, 0, $file, 0x3)) { throw 'SystemParametersInfo failed' }
+}
 
-    # Screensaver: download into staging, swap only once every photo has arrived.
-    Remove-Item $Staging -Recurse -Force -ErrorAction SilentlyContinue
-    New-Item -ItemType Directory $Staging | Out-Null
-    foreach ($p in $saver) { Save-Photo $p $Staging 'screensaver' | Out-Null }
-    Get-ChildItem $SaverDir -File | Remove-Item -Force
-    Get-ChildItem $Staging -File | Move-Item -Destination $SaverDir
-    Remove-Item $Staging -Force
+function Set-LockScreen([string]$file) {
+    Add-Type -AssemblyName System.Runtime.WindowsRuntime
+    $null = [Windows.Storage.StorageFile,Windows.Storage,ContentType=WindowsRuntime]
+    $null = [Windows.System.UserProfile.LockScreen,Windows.System.UserProfile,ContentType=WindowsRuntime]
+    $asTask = [System.WindowsRuntimeSystemExtensions].GetMethods() |
+        Where-Object { $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 }
+    $opAsTask  = ($asTask | Where-Object { $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
+    $actAsTask = ($asTask | Where-Object { $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncAction' })[0]
+
+    $getFile = $opAsTask.MakeGenericMethod([Windows.Storage.StorageFile]).Invoke(
+        $null, @([Windows.Storage.StorageFile]::GetFileFromPathAsync($file)))
+    $getFile.Wait(-1) | Out-Null
+    $setImage = $actAsTask.Invoke($null, @([Windows.System.UserProfile.LockScreen]::SetImageFileAsync($getFile.Result)))
+    $setImage.Wait(-1) | Out-Null
+}
+
+try {
+    $picked    = @($Queries | Get-Random -Count 2)
+    $wallQuery = $picked[0]
+    $lockQuery = if ($picked.Count -gt 1) { $picked[1] } else { $picked[0] }
+    Write-Log "queries: desktop '$wallQuery', lock screen '$lockQuery'"
+
+    $walls = Get-RandomPhotos $wallQuery 1
+    $wall  = $walls[0]
+    # Ask for two so one is left even if the first matches the desktop photo.
+    $locks = Get-RandomPhotos $lockQuery 2
+    $lock  = $null
+    foreach ($p in $locks) { if ($p.id -ne $wall.id) { $lock = $p; break } }
+
+    $wallFile = Save-Photo $wall $WallDir 'wallpaper'
+    Set-Wallpaper $wallFile
+    Remove-Older $WallDir $wallFile
+
+    $lockFile = Save-Photo $lock $LockDir 'lockscreen'
+    Set-LockScreen $lockFile
+    Remove-Older $LockDir $lockFile
 
     Set-Content -Path $Stamp -Value $today
     Write-Log 'done'

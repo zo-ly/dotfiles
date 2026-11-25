@@ -166,8 +166,9 @@ README → Windows. The shell runs in WSL2; WezTerm is the native Windows app in
 - Keep `.ps1` files ASCII-only: 5.1 reads BOM-less files as ANSI, so any Chinese text turns to mojibake.
 - `install.ps1` copies the script to `%LOCALAPPDATA%` and points the task there. A logon task cannot run
   from `\\wsl.localhost` — WSL is not up yet. So a change to the repo file takes effect only after `install.ps1` is re-run.
-- `unsplash-daily`: the key lives in the user env var `UNSPLASH_ACCESS_KEY`. The screensaver folder is
-  set by hand, because the Photos screensaver stores it as an encrypted PIDL that cannot be scripted cleanly.
+- `unsplash-daily`: sets the desktop (`SystemParametersInfo`) and the lock screen
+  (WinRT `LockScreen.SetImageFileAsync` — per user, no admin, but not loadable from pwsh 7). The key lives in
+  the user env var `UNSPLASH_ACCESS_KEY`. "屏保" here means the `Win+L` lock screen, not a classic screensaver.
 
 ## Bob
 

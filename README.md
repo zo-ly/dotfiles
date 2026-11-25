@@ -226,11 +226,11 @@ Anything with `Ctrl+Shift` belongs to the terminal; plain `Ctrl+letter` / `Alt+l
 Edit `~/.config/wezterm/wezterm.lua` in WSL, then `mackup backup` and commit from `~/dotfiles`
 (pushing needs an ssh key or `gh auth login` in WSL).
 
-### Unsplash wallpaper and screensaver — PowerShell
+### Unsplash wallpaper and lock screen — PowerShell
 
-`windows/unsplash-daily/` changes the desktop to a new Unsplash photo each day and refills a folder of
-20 different ones for the built-in *Photos* screensaver. Get an Access Key at
-[unsplash.com/developers](https://unsplash.com/developers) (New Application), then:
+`windows/unsplash-daily/` sets a new Unsplash photo each day on the desktop and a different one on the
+lock screen (`Win+L`). Get an Access Key at [unsplash.com/developers](https://unsplash.com/developers)
+(New Application), then:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\zoly\dotfiles\windows\unsplash-daily\install.ps1 -RunNow
@@ -239,13 +239,14 @@ powershell -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\zoly\dotfil
 It asks for the key once (stored as the user variable `UNSPLASH_ACCESS_KEY`, never in the repo), copies the
 script to `%LOCALAPPDATA%\UnsplashDaily` and registers the task *Unsplash Daily* (08:00 and at logon, once per day).
 
-The screensaver folder has to be picked by hand, once: `control desk.cpl,,@screensaver` → *Photos* →
-Settings → Browse → `%USERPROFILE%\Pictures\Unsplash\Screensaver`.
+Settings → Personalization → *Background* and *Lock screen* must both be set to **Picture** — under
+*Windows Spotlight* the lock screen keeps showing Spotlight's image.
 
-- Search terms, photo count and width are the `param()` defaults at the top of `unsplash-daily.ps1`.
+- The search terms (`$Queries`, two drawn each day) and the width are the `param()` defaults at the top
+  of `unsplash-daily.ps1`.
   Edit them in WSL, then run `install.ps1` again — the task uses the installed copy, not the repo file.
-- Force a new set today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
-  Each run uses ~23 of the 50 API requests allowed per hour.
+- New photos today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
+  Each run uses 4 of the 50 API requests allowed per hour.
 - Credits and errors go to `%USERPROFILE%\Pictures\Unsplash\log.txt`.
 - Remove with `uninstall.ps1` in the same folder.
 
