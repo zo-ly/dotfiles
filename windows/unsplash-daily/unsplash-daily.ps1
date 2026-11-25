@@ -3,9 +3,9 @@
 #
 # Runs once per day: a second run on the same day exits at once unless -Force.
 # -Only Wallpaper / -Only LockScreen swaps just that photo, at any time (desktop right-click menu).
-# Photos come from the best-ranked search results and are downloaded at full size;
-# anything narrower than -MinWidth is skipped.
-# Unsplash: about 2 API requests per photo, demo quota 50 per hour, needs the user env var
+# Photos come from the best-ranked results and are downloaded at full size, converted to sRGB;
+# anything narrower than -MinWidth or uploaded before -Since is skipped.
+# Unsplash: 2-3 API requests per photo, demo quota 50 per hour, needs the user env var
 # UNSPLASH_ACCESS_KEY (install.ps1 sets it). Wallhaven: no key, so SFW only.
 # Must stay on Windows PowerShell 5.1: the lock screen API is WinRT, which pwsh 7 cannot load.
 # Keep this file ASCII-only: PowerShell 5.1 reads BOM-less files as ANSI.
@@ -13,17 +13,21 @@ param(
     [switch]$Force,
     [ValidateSet('Both', 'Wallpaper', 'LockScreen')][string]$Only = 'Both',
     # Each day two different entries are drawn: one for the desktop, one for the lock screen.
-    # Plain entries search Unsplash (photography); "wh:" entries search Wallhaven
-    # (art and screenshots, general + anime categories).
+    # Plain entries search Unsplash (photography); "topic:" entries take the newest photos of
+    # an editor-curated Unsplash topic (slug from unsplash.com/t/<slug>); "wh:" entries search
+    # Wallhaven (art and screenshots, general + anime categories).
     [string[]]$Queries = @(
         'kamakura', 'kyoto',
         'yunnan', 'erhai lake', 'lijiang old town', 'chinese ancient town',
         'snow mountain lake', 'mountain reflection', 'misty mountains', 'fjord',
         'mountain meadow', 'horses grazing', 'autumn tree', 'mountain cabin',
         'classic car', 'sports car',
+        'topic:wallpapers', 'topic:nature', 'topic:travel',
         'wh:Makoto Shinkai'
     ),
     [int]$MinWidth = 3840,
+    # Unsplash's most relevant results lean on 2014-2018 photos with a faded film look.
+    [int]$Since = 2020,
     [string]$Root = (Join-Path $env:USERPROFILE 'Pictures\Unsplash')
 )
 
@@ -45,8 +49,23 @@ function Write-Log([string]$msg) { "$(Get-Date -Format s)  $msg" | Add-Content -
 $today = Get-Date -Format 'yyyy-MM-dd'
 if (-not $Force -and $Only -eq 'Both' -and (Test-Path $Stamp) -and ((Get-Content $Stamp -Raw).Trim() -eq $today)) { exit 0 }
 
-# Both sources return the same shape:
-#   Id (file name), Ext, Image (download URL), Page (web page), Width, Credit, Track (Unsplash only)
+# Every source returns the same shape: Id (file name), Ext, Image (download URL),
+# Page (web page), Width, Year (upload year, $null = don't filter), Credit, Track (Unsplash only)
+
+function ConvertFrom-Unsplash($p) {
+    [pscustomobject]@{
+        Id     = $p.id
+        Ext    = 'jpg'
+        # raw without w/h = original size. cs=srgb: many originals carry an Adobe RGB
+        # profile that the wallpaper renderer ignores, which washes the colours out.
+        Image  = '{0}&fm=jpg&q=95&cs=srgb' -f $p.urls.raw
+        Page   = '{0}?utm_source=unsplash_daily&utm_medium=referral' -f $p.links.html
+        Width  = $p.width
+        Year   = [int]$p.created_at.Substring(0, 4)
+        Credit = "by $($p.user.name)"
+        Track  = $p.links.download_location
+    }
+}
 
 # order_by=relevant ranks good photos first; /photos/random with a query draws from the
 # whole pool and returns noticeably weaker ones.
@@ -55,15 +74,15 @@ function Find-Unsplash([string]$query, [int]$page) {
     $url = "https://api.unsplash.com/search/photos?query=$q&orientation=landscape&content_filter=high" +
         "&order_by=relevant&per_page=30&page=$page"
     foreach ($p in (Invoke-RestMethod -Uri $url -Headers $Headers -UseBasicParsing).results) {
-        [pscustomobject]@{
-            Id     = $p.id
-            Ext    = 'jpg'
-            Image  = '{0}&fm=jpg&q=95' -f $p.urls.raw   # raw without w/h = original size
-            Page   = '{0}?utm_source=unsplash_daily&utm_medium=referral' -f $p.links.html
-            Width  = $p.width
-            Credit = "by $($p.user.name)"
-            Track  = $p.links.download_location
-        }
+        ConvertFrom-Unsplash $p
+    }
+}
+
+function Find-UnsplashTopic([string]$slug, [int]$page) {
+    $url = "https://api.unsplash.com/topics/$slug/photos?orientation=landscape&order_by=latest" +
+        "&per_page=30&page=$page"
+    foreach ($p in (Invoke-RestMethod -Uri $url -Headers $Headers -UseBasicParsing)) {
+        ConvertFrom-Unsplash $p
     }
 }
 
@@ -81,6 +100,7 @@ function Find-Wallhaven([string]$query, [int]$page) {
             Image  = $w.path
             Page   = $w.url
             Width  = $w.dimension_x
+            Year   = $null   # upload date says nothing about the art's age
             Credit = 'on Wallhaven'
             Track  = $null
         }
@@ -89,6 +109,7 @@ function Find-Wallhaven([string]$query, [int]$page) {
 
 function Find-Photos([string]$entry, [int]$page) {
     if ($entry -like 'wh:*') { Find-Wallhaven $entry.Substring(3).Trim() $page }
+    elseif ($entry -like 'topic:*') { Find-UnsplashTopic $entry.Substring(6).Trim() $page }
     else { Find-Unsplash $entry $page }
 }
 
@@ -140,14 +161,20 @@ function Set-LockScreen([string]$file) {
     $setImage.Wait(-1) | Out-Null
 }
 
-# A random pick from the first few result pages for $entry, at least $MinWidth wide and on
-# neither surface right now: a swap never brings back the photo it replaces, and the
-# desktop and lock screen never match.
+# Wide enough, recent enough, and on neither surface right now: a swap never brings back
+# the photo it replaces, and the desktop and lock screen never match.
+function Select-Usable($photos, $current) {
+    @($photos | Where-Object {
+        $_.Width -ge $MinWidth -and $current -notcontains $_.Id -and ($null -eq $_.Year -or $_.Year -ge $Since)
+    })
+}
+
+# A random pick from one of the first five result pages, falling back to page 1
+# when that page is empty or has nothing usable.
 function Get-NewPhoto([string]$entry) {
     $current = @(Get-ChildItem $WallDir, $LockDir -File | ForEach-Object { $_.BaseName })
-    $photos = @(Find-Photos $entry (Get-Random -Minimum 1 -Maximum 4))
-    if ($photos.Count -eq 0) { $photos = @(Find-Photos $entry 1) }   # fewer than 3 pages
-    $ok = @($photos | Where-Object { $_.Width -ge $MinWidth -and $current -notcontains $_.Id })
+    $ok = Select-Usable @(Find-Photos $entry (Get-Random -Minimum 1 -Maximum 6)) $current
+    if ($ok.Count -eq 0) { $ok = Select-Usable @(Find-Photos $entry 1) $current }
     if ($ok.Count -eq 0) { throw "no new photo for '$entry'" }
     $ok | Get-Random
 }

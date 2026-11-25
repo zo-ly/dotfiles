@@ -229,8 +229,8 @@ Edit `~/.config/wezterm/wezterm.lua` in WSL, then `mackup backup` and commit fro
 ### Unsplash wallpaper and lock screen — PowerShell
 
 `windows/unsplash-daily/` sets a new photo each day on the desktop and a different one on the
-lock screen (`Win+L`), from Unsplash or, for entries prefixed `wh:`, Wallhaven (SFW, no key needed). Get an Access Key at [unsplash.com/developers](https://unsplash.com/developers)
-(New Application), then:
+lock screen (`Win+L`), from Unsplash or, for entries prefixed `wh:`, Wallhaven (SFW, no key needed).
+Get an Access Key at [unsplash.com/developers](https://unsplash.com/developers) (New Application), then:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\zoly\dotfiles\windows\unsplash-daily\install.ps1 -RunNow
@@ -242,11 +242,12 @@ script to `%LOCALAPPDATA%\UnsplashDaily` and registers the task *Unsplash Daily*
 Settings → Personalization → *Background* and *Lock screen* must both be set to **Picture** — under
 *Windows Spotlight* the lock screen keeps showing Spotlight's image.
 
-- The search terms (`$Queries`, two drawn each day; `wh:` = Wallhaven) and the minimum photo width are the `param()`
-  defaults at the top of `unsplash-daily.ps1`.
+- The `param()` defaults at the top of `unsplash-daily.ps1` hold the entries (`$Queries`, two drawn each
+  day: a search term, `topic:<slug>` for a curated Unsplash topic, or `wh:<term>` for Wallhaven), the
+  minimum width and the earliest upload year (`$Since`).
   Edit them in WSL, then run `install.ps1` again — the task uses the installed copy, not the repo file.
 - New photos today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
-  Each run uses 4 of the 50 API requests allowed per hour.
+  Each run uses 4–6 of the 50 Unsplash API requests allowed per hour.
 - Desktop right-click → *Show more options* (or Shift+right-click) → *Unsplash*: open today's wallpaper or
   lock screen photo on Unsplash (to like or collect it), or swap either one for a new photo.
 - Credits and errors go to `%USERPROFILE%\Pictures\Unsplash\log.txt`.
