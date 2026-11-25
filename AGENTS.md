@@ -7,6 +7,7 @@ dotfiles/
 ├── Mackup/        # Config files managed by Mackup (actual file contents)
 ├── Bob/           # Bob (macOS translation/OCR app) config export
 ├── raycast/       # Raycast scripts/extensions
+├── windows/       # Windows-side scripts, installed by hand (not Mackup)
 └── README.md
 ```
 
@@ -156,6 +157,17 @@ README → Windows. The shell runs in WSL2; WezTerm is the native Windows app in
 - Links open on `Ctrl+click` only; WezTerm's default opens them on a plain click.
 - Splits keep the directory because `.zshrc` emits OSC 7 when `$WSL_DISTRO_NAME` is set.
 - Not ported from kitty: the `tall` layout and its bias/mirror actions, the nvim scrollback pager.
+
+## Windows scripts
+
+`windows/` holds PowerShell for the Windows side, outside Mackup. Usage is in README → Windows.
+
+- Target Windows PowerShell 5.1 (what Task Scheduler's `powershell.exe` is), not pwsh 7.
+- Keep `.ps1` files ASCII-only: 5.1 reads BOM-less files as ANSI, so any Chinese text turns to mojibake.
+- `install.ps1` copies the script to `%LOCALAPPDATA%` and points the task there. A logon task cannot run
+  from `\\wsl.localhost` — WSL is not up yet. So a change to the repo file takes effect only after `install.ps1` is re-run.
+- `unsplash-daily`: the key lives in the user env var `UNSPLASH_ACCESS_KEY`. The screensaver folder is
+  set by hand, because the Photos screensaver stores it as an encrypted PIDL that cannot be scripted cleanly.
 
 ## Bob
 

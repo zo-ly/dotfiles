@@ -226,6 +226,29 @@ Anything with `Ctrl+Shift` belongs to the terminal; plain `Ctrl+letter` / `Alt+l
 Edit `~/.config/wezterm/wezterm.lua` in WSL, then `mackup backup` and commit from `~/dotfiles`
 (pushing needs an ssh key or `gh auth login` in WSL).
 
+### Unsplash wallpaper and screensaver — PowerShell
+
+`windows/unsplash-daily/` changes the desktop to a new Unsplash photo each day and refills a folder of
+20 different ones for the built-in *Photos* screensaver. Get an Access Key at
+[unsplash.com/developers](https://unsplash.com/developers) (New Application), then:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File \\wsl.localhost\Ubuntu\home\zoly\dotfiles\windows\unsplash-daily\install.ps1 -RunNow
+```
+
+It asks for the key once (stored as the user variable `UNSPLASH_ACCESS_KEY`, never in the repo), copies the
+script to `%LOCALAPPDATA%\UnsplashDaily` and registers the task *Unsplash Daily* (08:00 and at logon, once per day).
+
+The screensaver folder has to be picked by hand, once: `control desk.cpl,,@screensaver` → *Photos* →
+Settings → Browse → `%USERPROFILE%\Pictures\Unsplash\Screensaver`.
+
+- Search terms, photo count and width are the `param()` defaults at the top of `unsplash-daily.ps1`.
+  Edit them in WSL, then run `install.ps1` again — the task uses the installed copy, not the repo file.
+- Force a new set today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
+  Each run uses ~23 of the 50 API requests allowed per hour.
+- Credits and errors go to `%USERPROFILE%\Pictures\Unsplash\log.txt`.
+- Remove with `uninstall.ps1` in the same folder.
+
 ---
 
 ## Back up
