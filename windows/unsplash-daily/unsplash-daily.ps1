@@ -3,8 +3,9 @@
 #
 # Runs once per day: a second run on the same day exits at once unless -Force.
 # -Only Wallpaper / -Only LockScreen swaps just that photo, at any time (desktop right-click menu).
-# Photos come from the best-ranked results and are downloaded at full size, converted to sRGB;
-# anything narrower than -MinWidth or uploaded before -Since is skipped.
+# Photos are downloaded at full size, converted to sRGB; anything narrower than -MinWidth is
+# skipped, and search / topic results uploaded before -Since too. Photos never shown come
+# first, then the one shown longest ago, so a small collection cycles through all its photos.
 # Unsplash: 2-3 API requests per photo, demo quota 50 per hour, needs the user env var
 # UNSPLASH_ACCESS_KEY (install.ps1 sets it). Wallhaven: no key, so SFW only.
 # Must stay on Windows PowerShell 5.1: the lock screen API is WinRT, which pwsh 7 cannot load.
@@ -13,20 +14,17 @@ param(
     [switch]$Force,
     [ValidateSet('Both', 'Wallpaper', 'LockScreen')][string]$Only = 'Both',
     # Each day two different entries are drawn: one for the desktop, one for the lock screen.
-    # Plain entries search Unsplash (photography); "topic:" entries take the newest photos of
-    # an editor-curated Unsplash topic (slug from unsplash.com/t/<slug>); "wh:" entries search
-    # Wallhaven (art and screenshots, general + anime categories).
+    # Entry kinds:
+    #   collection:<id>  every landscape photo of an Unsplash collection (id from its URL)
+    #   topic:<slug>     newest photos of an editor-curated Unsplash topic (unsplash.com/t/<slug>)
+    #   wh:<term>        Wallhaven search (art and screenshots, general + anime categories)
+    #   <term>           Unsplash search, most relevant first
     [string[]]$Queries = @(
-        'kamakura', 'kyoto',
-        'yunnan', 'erhai lake', 'lijiang old town', 'chinese ancient town',
-        'snow mountain lake', 'mountain reflection', 'misty mountains', 'fjord',
-        'mountain meadow', 'horses grazing', 'autumn tree', 'mountain cabin',
-        'classic car', 'sports car',
-        'topic:wallpapers', 'topic:nature', 'topic:travel',
-        'wh:Makoto Shinkai'
+        'collection:27HJMxXMC7k'
     ),
     [int]$MinWidth = 3840,
     # Unsplash's most relevant results lean on 2014-2018 photos with a faded film look.
+    # Not applied to collections: those photos were picked by hand.
     [int]$Since = 2020,
     [string]$Root = (Join-Path $env:USERPROFILE 'Pictures\Unsplash')
 )
@@ -41,6 +39,7 @@ $Headers = @{ Authorization = "Client-ID $Key"; 'Accept-Version' = 'v1' }
 $WallDir = Join-Path $Root 'Wallpaper'
 $LockDir = Join-Path $Root 'LockScreen'
 $Stamp   = Join-Path $Root 'last-run.txt'
+$History = Join-Path $Root 'history.txt'   # ids shown, oldest first
 $Log     = Join-Path $Root 'log.txt'
 New-Item -ItemType Directory -Force $WallDir, $LockDir | Out-Null
 
@@ -78,6 +77,22 @@ function Find-Unsplash([string]$query, [int]$page) {
     }
 }
 
+# The whole collection, whatever $page asks for: collections are small, and the
+# never-shown / longest-ago rule needs to see every photo.
+function Find-UnsplashCollection([string]$id) {
+    for ($page = 1; $page -le 10; $page++) {
+        $url = "https://api.unsplash.com/collections/$id/photos?orientation=landscape&per_page=30&page=$page"
+        # No @() here: 5.1 emits a JSON array as one object, and @() would nest it.
+        $batch = Invoke-RestMethod -Uri $url -Headers $Headers -UseBasicParsing
+        foreach ($p in $batch) {
+            $photo = ConvertFrom-Unsplash $p
+            $photo.Year = $null
+            $photo
+        }
+        if ($batch.Count -lt 30) { break }
+    }
+}
+
 function Find-UnsplashTopic([string]$slug, [int]$page) {
     $url = "https://api.unsplash.com/topics/$slug/photos?orientation=landscape&order_by=latest" +
         "&per_page=30&page=$page"
@@ -110,6 +125,7 @@ function Find-Wallhaven([string]$query, [int]$page) {
 function Find-Photos([string]$entry, [int]$page) {
     if ($entry -like 'wh:*') { Find-Wallhaven $entry.Substring(3).Trim() $page }
     elseif ($entry -like 'topic:*') { Find-UnsplashTopic $entry.Substring(6).Trim() $page }
+    elseif ($entry -like 'collection:*') { Find-UnsplashCollection $entry.Substring(11).Trim() }
     else { Find-Unsplash $entry $page }
 }
 
@@ -169,14 +185,26 @@ function Select-Usable($photos, $current) {
     })
 }
 
-# A random pick from one of the first five result pages, falling back to page 1
-# when that page is empty or has nothing usable.
+function Get-History { if (Test-Path $History) { Get-Content $History | Where-Object { $_ } } }
+
+function Add-History([string]$id) {
+    $ids = @(@(Get-History) | Where-Object { $_ -ne $id }) + $id
+    $ids | Select-Object -Last 500 | Set-Content -Path $History -Encoding ASCII
+}
+
+# Candidates come from one of the first five result pages, falling back to page 1 when that
+# page is empty or has nothing usable. Among them: a random never-shown photo if any is
+# left, else the one shown longest ago.
 function Get-NewPhoto([string]$entry) {
     $current = @(Get-ChildItem $WallDir, $LockDir -File | ForEach-Object { $_.BaseName })
     $ok = Select-Usable @(Find-Photos $entry (Get-Random -Minimum 1 -Maximum 6)) $current
     if ($ok.Count -eq 0) { $ok = Select-Usable @(Find-Photos $entry 1) $current }
     if ($ok.Count -eq 0) { throw "no new photo for '$entry'" }
-    $ok | Get-Random
+
+    $shown = @(Get-History)
+    $fresh = @($ok | Where-Object { $shown -notcontains $_.Id })
+    if ($fresh.Count -gt 0) { return $fresh | Get-Random }
+    $ok | Sort-Object { [array]::IndexOf($shown, $_.Id) } | Select-Object -First 1
 }
 
 function Update-Surface([string]$surface, [string]$entry) {
@@ -186,6 +214,7 @@ function Update-Surface([string]$surface, [string]$entry) {
     $file  = Save-Photo $photo $dir $surface.ToLower()
     if ($surface -eq 'Wallpaper') { Set-Wallpaper $file } else { Set-LockScreen $file }
     Write-PageShortcut $surface $photo
+    Add-History $photo.Id
     Remove-Older $dir $file
 }
 

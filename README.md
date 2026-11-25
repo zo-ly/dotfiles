@@ -229,7 +229,8 @@ Edit `~/.config/wezterm/wezterm.lua` in WSL, then `mackup backup` and commit fro
 ### Unsplash wallpaper and lock screen — PowerShell
 
 `windows/unsplash-daily/` sets a new photo each day on the desktop and a different one on the
-lock screen (`Win+L`), from Unsplash or, for entries prefixed `wh:`, Wallhaven (SFW, no key needed).
+lock screen (`Win+L`), by default from an Unsplash collection, cycling through all of its photos before
+repeating one. Unsplash searches and topics, and Wallhaven (SFW, no key needed), also work as sources.
 Get an Access Key at [unsplash.com/developers](https://unsplash.com/developers) (New Application), then:
 
 ```powershell
@@ -243,8 +244,8 @@ Settings → Personalization → *Background* and *Lock screen* must both be set
 *Windows Spotlight* the lock screen keeps showing Spotlight's image.
 
 - The `param()` defaults at the top of `unsplash-daily.ps1` hold the entries (`$Queries`, two drawn each
-  day: a search term, `topic:<slug>` for a curated Unsplash topic, or `wh:<term>` for Wallhaven), the
-  minimum width and the earliest upload year (`$Since`).
+  day: `collection:<id>`, `topic:<slug>` for a curated Unsplash topic, `wh:<term>` for Wallhaven, or a plain
+  Unsplash search term), the minimum width and the earliest upload year for searches and topics (`$Since`).
   Edit them in WSL, then run `install.ps1` again — the task uses the installed copy, not the repo file.
 - New photos today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
   Each run uses 4–6 of the 50 Unsplash API requests allowed per hour.
