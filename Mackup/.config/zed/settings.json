@@ -75,6 +75,13 @@
       }
     }
   },
+  "git_hosting_providers": [
+    {
+      "provider": "gitea",
+      "name": "Jinshuju Gitea",
+      "base_url": "https://git.jinshuju.co"
+    }
+  ],
   "vim_mode": true,
   "telemetry": {
     "metrics": true
