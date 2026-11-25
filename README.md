@@ -247,6 +247,8 @@ Settings → Personalization → *Background* and *Lock screen* must both be set
   Edit them in WSL, then run `install.ps1` again — the task uses the installed copy, not the repo file.
 - New photos today: `powershell -ExecutionPolicy Bypass -File $env:LOCALAPPDATA\UnsplashDaily\unsplash-daily.ps1 -Force`.
   Each run uses 4 of the 50 API requests allowed per hour.
+- To like or collect today's photos: right-click the desktop → *Show more options* (or Shift+right-click) →
+  *Unsplash: this wallpaper* / *Unsplash: this lock screen* opens the photo's page.
 - Credits and errors go to `%USERPROFILE%\Pictures\Unsplash\log.txt`.
 - Remove with `uninstall.ps1` in the same folder.
 

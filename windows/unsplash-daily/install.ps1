@@ -30,6 +30,24 @@ $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAv
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $daily, $logon -Settings $settings -Force | Out-Null
 Write-Host "Installed $Script and scheduled task '$TaskName'."
 
+# Desktop right-click menu: open today's photos on Unsplash (to like / collect them).
+# Windows 11 lists these under "Show more options" (or Shift+right-click).
+$photos = Join-Path $env:USERPROFILE 'Pictures\Unsplash'
+$menus = [ordered]@{
+    UnsplashWallpaper  = @('Unsplash: this wallpaper', 'Wallpaper.url')
+    UnsplashLockScreen = @('Unsplash: this lock screen', 'LockScreen.url')
+}
+foreach ($name in $menus.Keys) {
+    $key = "HKCU:\Software\Classes\DesktopBackground\Shell\$name"
+    foreach ($k in $key, "$key\command") {
+        if (-not (Test-Path $k)) { New-Item -Path $k -Force | Out-Null }
+    }
+    Set-ItemProperty -Path $key -Name 'MUIVerb' -Value $menus[$name][0]
+    Set-ItemProperty -Path "$key\command" -Name '(default)' `
+        -Value ('explorer.exe "{0}"' -f (Join-Path $photos $menus[$name][1]))
+}
+Write-Host 'Added the desktop right-click entries.'
+
 $legacy = Join-Path $env:USERPROFILE 'Scripts\unsplash-daily.ps1'
 if (Test-Path $legacy) { Write-Warning "$legacy is no longer used and can be deleted." }
 

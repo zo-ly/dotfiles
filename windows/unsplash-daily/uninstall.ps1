@@ -10,6 +10,9 @@ if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
     Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
 }
 Remove-Item (Join-Path $env:LOCALAPPDATA 'UnsplashDaily') -Recurse -Force -ErrorAction SilentlyContinue
+foreach ($name in 'UnsplashWallpaper', 'UnsplashLockScreen') {
+    Remove-Item "HKCU:\Software\Classes\DesktopBackground\Shell\$name" -Recurse -Force -ErrorAction SilentlyContinue
+}
 
-Write-Host "Removed task '$TaskName' and $env:LOCALAPPDATA\UnsplashDaily."
+Write-Host "Removed task '$TaskName', the desktop right-click entries and $env:LOCALAPPDATA\UnsplashDaily."
 Write-Host "Still there: $env:USERPROFILE\Pictures\Unsplash and the UNSPLASH_ACCESS_KEY user variable."

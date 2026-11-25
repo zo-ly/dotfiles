@@ -168,7 +168,9 @@ README → Windows. The shell runs in WSL2; WezTerm is the native Windows app in
   from `\\wsl.localhost` — WSL is not up yet. So a change to the repo file takes effect only after `install.ps1` is re-run.
 - `unsplash-daily`: sets the desktop (`SystemParametersInfo`) and the lock screen
   (WinRT `LockScreen.SetImageFileAsync` — per user, no admin, but not loadable from pwsh 7). The key lives in
-  the user env var `UNSPLASH_ACCESS_KEY`. "屏保" here means the `Win+L` lock screen, not a classic screensaver.
+  the user env var `UNSPLASH_ACCESS_KEY`. The desktop right-click entries live under
+  `HKCU\Software\Classes\DesktopBackground\Shell`; Windows 11 shows such legacy verbs only under
+  *Show more options*, and their labels stay ASCII (see above). "屏保" here means the `Win+L` lock screen, not a classic screensaver.
 
 ## Bob
 

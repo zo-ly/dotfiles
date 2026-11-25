@@ -55,6 +55,12 @@ function Save-Photo($photo, [string]$dir, [string]$label) {
     $file
 }
 
+# <name>.url opens the photo's Unsplash page; the desktop right-click menu (install.ps1) points here.
+function Write-PageShortcut([string]$name, $photo) {
+    $url = '{0}?utm_source=unsplash_daily&utm_medium=referral' -f $photo.links.html
+    Set-Content -Path (Join-Path $Root "$name.url") -Value "[InternetShortcut]`r`nURL=$url" -Encoding ASCII
+}
+
 # Keep only the photo just set; Windows has already copied it into its own store.
 function Remove-Older([string]$dir, [string]$keep) {
     Get-ChildItem $dir -Filter *.jpg | Where-Object { $_.FullName -ne $keep } | Remove-Item -Force
@@ -100,10 +106,12 @@ try {
 
     $wallFile = Save-Photo $wall $WallDir 'wallpaper'
     Set-Wallpaper $wallFile
+    Write-PageShortcut 'Wallpaper' $wall
     Remove-Older $WallDir $wallFile
 
     $lockFile = Save-Photo $lock $LockDir 'lockscreen'
     Set-LockScreen $lockFile
+    Write-PageShortcut 'LockScreen' $lock
     Remove-Older $LockDir $lockFile
 
     Set-Content -Path $Stamp -Value $today
