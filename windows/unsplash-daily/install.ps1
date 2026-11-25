@@ -20,8 +20,10 @@ if (-not [Environment]::GetEnvironmentVariable('UNSPLASH_ACCESS_KEY', 'User')) {
 New-Item -ItemType Directory -Force $InstallDir | Out-Null
 Copy-Item (Join-Path $PSScriptRoot 'unsplash-daily.ps1') $Script -Force
 
-$action   = New-ScheduledTaskAction -Execute 'powershell.exe' `
-    -Argument "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File `"$Script`""
+# conhost --headless gives powershell a console with no window at all;
+# -WindowStyle Hidden would still flash one before hiding it.
+$run      = "--headless powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$Script`""
+$action   = New-ScheduledTaskAction -Execute 'conhost.exe' -Argument $run
 $daily    = New-ScheduledTaskTrigger -Daily -At 8:00
 $logon    = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
 $logon.Delay = 'PT1M'
@@ -45,13 +47,13 @@ Set-ItemProperty -Path $menu -Name 'MUIVerb' -Value 'Unsplash'
 Set-ItemProperty -Path $menu -Name 'SubCommands' -Value ''
 
 $open = 'explorer.exe "{0}"'
-$swap = 'powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}" -Only {1}'
+$swap = 'conhost.exe {0} -Only {1}'
 # Key names sort the entries; 0x20 = separator before.
 $items = @(
     @('1-open-wallpaper',  'Open this wallpaper',   ($open -f (Join-Path $photos 'Wallpaper.url')),  0),
     @('2-open-lockscreen', 'Open this lock screen', ($open -f (Join-Path $photos 'LockScreen.url')), 0),
-    @('3-new-wallpaper',   'New wallpaper',         ($swap -f $Script, 'Wallpaper'),                  0x20),
-    @('4-new-lockscreen',  'New lock screen',       ($swap -f $Script, 'LockScreen'),                 0)
+    @('3-new-wallpaper',   'New wallpaper',         ($swap -f $run, 'Wallpaper'),                     0x20),
+    @('4-new-lockscreen',  'New lock screen',       ($swap -f $run, 'LockScreen'),                    0)
 )
 foreach ($item in $items) {
     $key = "$menu\shell\$($item[0])"
