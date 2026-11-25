@@ -30,23 +30,38 @@ $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RunOnlyIfNetworkAv
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $daily, $logon -Settings $settings -Force | Out-Null
 Write-Host "Installed $Script and scheduled task '$TaskName'."
 
-# Desktop right-click menu: open today's photos on Unsplash (to like / collect them).
-# Windows 11 lists these under "Show more options" (or Shift+right-click).
+# Desktop right-click menu: an "Unsplash" submenu to open today's photos on Unsplash
+# (to like / collect them) or swap one. Windows 11 lists it under "Show more options"
+# (or Shift+right-click). Rebuilt from scratch on every install.
+$shell  = 'HKCU:\Software\Classes\DesktopBackground\Shell'
 $photos = Join-Path $env:USERPROFILE 'Pictures\Unsplash'
-$menus = [ordered]@{
-    UnsplashWallpaper  = @('Unsplash: this wallpaper', 'Wallpaper.url')
-    UnsplashLockScreen = @('Unsplash: this lock screen', 'LockScreen.url')
+foreach ($old in 'Unsplash', 'UnsplashWallpaper', 'UnsplashLockScreen') {
+    Remove-Item "$shell\$old" -Recurse -Force -ErrorAction SilentlyContinue
 }
-foreach ($name in $menus.Keys) {
-    $key = "HKCU:\Software\Classes\DesktopBackground\Shell\$name"
-    foreach ($k in $key, "$key\command") {
-        if (-not (Test-Path $k)) { New-Item -Path $k -Force | Out-Null }
-    }
-    Set-ItemProperty -Path $key -Name 'MUIVerb' -Value $menus[$name][0]
-    Set-ItemProperty -Path "$key\command" -Name '(default)' `
-        -Value ('explorer.exe "{0}"' -f (Join-Path $photos $menus[$name][1]))
+$menu = "$shell\Unsplash"
+New-Item -Path $menu -Force | Out-Null
+New-Item -Path "$menu\shell" -Force | Out-Null
+Set-ItemProperty -Path $menu -Name 'MUIVerb' -Value 'Unsplash'
+Set-ItemProperty -Path $menu -Name 'SubCommands' -Value ''
+
+$open = 'explorer.exe "{0}"'
+$swap = 'powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}" -Only {1}'
+# Key names sort the entries; 0x20 = separator before.
+$items = @(
+    @('1-open-wallpaper',  'Open this wallpaper',   ($open -f (Join-Path $photos 'Wallpaper.url')),  0),
+    @('2-open-lockscreen', 'Open this lock screen', ($open -f (Join-Path $photos 'LockScreen.url')), 0),
+    @('3-new-wallpaper',   'New wallpaper',         ($swap -f $Script, 'Wallpaper'),                  0x20),
+    @('4-new-lockscreen',  'New lock screen',       ($swap -f $Script, 'LockScreen'),                 0)
+)
+foreach ($item in $items) {
+    $key = "$menu\shell\$($item[0])"
+    New-Item -Path $key -Force | Out-Null
+    New-Item -Path "$key\command" -Force | Out-Null
+    Set-ItemProperty -Path $key -Name 'MUIVerb' -Value $item[1]
+    if ($item[3]) { New-ItemProperty -Path $key -Name 'CommandFlags' -PropertyType DWord -Value $item[3] -Force | Out-Null }
+    Set-ItemProperty -Path "$key\command" -Name '(default)' -Value $item[2]
 }
-Write-Host 'Added the desktop right-click entries.'
+Write-Host 'Added the desktop right-click submenu "Unsplash".'
 
 $legacy = Join-Path $env:USERPROFILE 'Scripts\unsplash-daily.ps1'
 if (Test-Path $legacy) { Write-Warning "$legacy is no longer used and can be deleted." }

@@ -2,12 +2,14 @@
 # Each day: one photo for the desktop, a different one for the lock screen (Win+L).
 #
 # Runs once per day: a second run on the same day exits at once unless -Force.
-# Each run costs 4 API requests; the demo quota is 50 per hour.
+# -Only Wallpaper / -Only LockScreen swaps just that photo, at any time (desktop right-click menu).
+# 2 API requests per photo; the demo quota is 50 per hour.
 # Needs the user environment variable UNSPLASH_ACCESS_KEY (install.ps1 sets it).
 # Must stay on Windows PowerShell 5.1: the lock screen API is WinRT, which pwsh 7 cannot load.
 # Keep this file ASCII-only: PowerShell 5.1 reads BOM-less files as ANSI.
 param(
     [switch]$Force,
+    [ValidateSet('Both', 'Wallpaper', 'LockScreen')][string]$Only = 'Both',
     # Each day two different terms are drawn: one for the desktop, one for the lock screen.
     [string[]]$Queries = @(
         # Japan
@@ -37,7 +39,7 @@ New-Item -ItemType Directory -Force $WallDir, $LockDir | Out-Null
 function Write-Log([string]$msg) { "$(Get-Date -Format s)  $msg" | Add-Content -Encoding UTF8 $Log }
 
 $today = Get-Date -Format 'yyyy-MM-dd'
-if (-not $Force -and (Test-Path $Stamp) -and ((Get-Content $Stamp -Raw).Trim() -eq $today)) { exit 0 }
+if (-not $Force -and $Only -eq 'Both' -and (Test-Path $Stamp) -and ((Get-Content $Stamp -Raw).Trim() -eq $today)) { exit 0 }
 
 function Get-RandomPhotos([string]$query, [int]$count) {
     $q = [uri]::EscapeDataString($query)
@@ -91,30 +93,34 @@ function Set-LockScreen([string]$file) {
     $setImage.Wait(-1) | Out-Null
 }
 
+# A random photo for $query that is on neither surface right now: a swap never brings
+# back the photo it replaces, and the desktop and lock screen never match.
+function Get-NewPhoto([string]$query) {
+    $current = @(Get-ChildItem $WallDir, $LockDir -Filter *.jpg | ForEach-Object { $_.BaseName })
+    $photos = Get-RandomPhotos $query 2
+    foreach ($p in $photos) { if ($current -notcontains $p.id) { return $p } }
+    throw "no new photo for '$query'"
+}
+
+function Update-Surface([string]$surface, [string]$query) {
+    Write-Log "$surface  query '$query'"
+    $dir   = if ($surface -eq 'Wallpaper') { $WallDir } else { $LockDir }
+    $photo = Get-NewPhoto $query
+    $file  = Save-Photo $photo $dir $surface.ToLower()
+    if ($surface -eq 'Wallpaper') { Set-Wallpaper $file } else { Set-LockScreen $file }
+    Write-PageShortcut $surface $photo
+    Remove-Older $dir $file
+}
+
 try {
-    $picked    = @($Queries | Get-Random -Count 2)
-    $wallQuery = $picked[0]
-    $lockQuery = if ($picked.Count -gt 1) { $picked[1] } else { $picked[0] }
-    Write-Log "queries: desktop '$wallQuery', lock screen '$lockQuery'"
-
-    $walls = Get-RandomPhotos $wallQuery 1
-    $wall  = $walls[0]
-    # Ask for two so one is left even if the first matches the desktop photo.
-    $locks = Get-RandomPhotos $lockQuery 2
-    $lock  = $null
-    foreach ($p in $locks) { if ($p.id -ne $wall.id) { $lock = $p; break } }
-
-    $wallFile = Save-Photo $wall $WallDir 'wallpaper'
-    Set-Wallpaper $wallFile
-    Write-PageShortcut 'Wallpaper' $wall
-    Remove-Older $WallDir $wallFile
-
-    $lockFile = Save-Photo $lock $LockDir 'lockscreen'
-    Set-LockScreen $lockFile
-    Write-PageShortcut 'LockScreen' $lock
-    Remove-Older $LockDir $lockFile
-
-    Set-Content -Path $Stamp -Value $today
+    if ($Only -eq 'Both') {
+        $picked = @($Queries | Get-Random -Count 2)
+        Update-Surface 'Wallpaper' $picked[0]
+        Update-Surface 'LockScreen' $picked[-1]
+        Set-Content -Path $Stamp -Value $today
+    } else {
+        Update-Surface $Only ($Queries | Get-Random)
+    }
     Write-Log 'done'
 } catch {
     Write-Log "ERROR: $_"
